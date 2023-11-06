@@ -15,6 +15,7 @@
     }
 
     global $conn;
+
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if (!$conn) {
         die("Cannot Establish A Secure Connection To The Host Server At The Moment! (1)");
@@ -113,100 +114,76 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/icon.png">
         <title>Login</title>
-        <!-- Bootstrap Core CSS -->
-        <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
-        <!-- animation CSS -->
-        <link href="css/animate.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link href="css/style.css" rel="stylesheet">
-        <!-- color CSS -->
-        <link href="css/colors/blue.css" id="theme" rel="stylesheet">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <link rel="icon" typee="image/x-icon" href="/public/assets/img/favicon.ico">
+        <link href="/public/css/light/loader.css" href="stylesheet" type="text/css">
+        <link href="/public/css/dark/loader.css" href="stylesheet" type="text/css">
+        <script src="/public/loader.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+        <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/public/css/light/plugins.css" rel="stylesheet" type="text/css">
+        <link href="/public/assets/css/light/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
+        <link href="/public/css/dark/plugins.css" rel="stylesheet" type="text/css">
+        <link href="/public/assets/css/dark/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
+        <link href="/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
     </head>
 
-    <body>
-        <!-- Preloader -->
-        <div class="preloader">
-            <div class="cssload-speeding-wheel"></div>
-        </div>
-        <section id="wrapper" class="login-register">
-            <div class="login-box">
-                <div class="white-box">
-                    <form class="form-horizontal form-material" id="loginform" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-                        <h3 class="box-title m-b-20">Sign In</h3>
-                        <p style="color:red;">  <?php echo $email_err; ?> </p>
-                        <p style="color:red;">  <?php echo $password_err; ?> </p>
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="email" name="email" required="" placeholder="Email">
+    <body class="form layout-boxed" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
+        <div class="auth-container d-flex">
+            <div class="container mx-auto align-self-center">
+                <div class="row">
+                    <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+                        <div class="card mt-3 mb-3">
+                            <div class="card-body">
+                                <form method="post">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <h2>Sign In</h2>
+                                            <p>Enter your email and password to login</p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" name="email" id="email" class="form-control" required="" autofocus="">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-4">
+                                                <label class="form-label">Password</label>
+                                                <input type="password" name="password" id="password" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <div class="form-check form-check-primary form-check-inline">
+                                                    <input class="form-check-input me-3" type="checkbox" id="form-check-default">
+                                                    <label class="form-check-label" for="form-check-default">Remember me</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" name="submit" class="btn btn-secondary w-100">SIGN IN</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="password" name="password" required="" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                            <!--  <div class="checkbox checkbox-primary pull-left p-t-0">
-                                    <input id="checkbox-signup" type="checkbox">
-                                    <label for="checkbox-signup"> Remember me </label>
-                                </div> -->
-                            <!--  <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot pwd?</a>  -->
-                            </div>
-                        </div>
-                        <div class="form-group text-center m-t-20">
-                            <div class="col-xs-12">
-                                <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" name="submit">Log In</button>
-                            </div>
-                        </div>
-                    </form>
-                    <!--  <form class="form-horizontal" id="recoverform" action="index.php">
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <h3>Recover Password</h3>
-                                <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="form-group text-center m-t-20">
-                            <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
-                            </div>
-                        </div>
-                    </form> -->
+                    </div>
                 </div>
             </div>
-        </section>
-        <!-- jQuery -->
-        <script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="bootstrap/dist/js/tether.min.js"></script>
-        <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
-        <!-- Menu Plugin JavaScript -->
-        <script src="../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-        <!--slimscroll JavaScript -->
-        <script src="js/jquery.slimscroll.js"></script>
-        <!--Wave Effects -->
-        <script src="js/waves.js"></script>
-        <!-- Custom Theme JavaScript -->
-        <script src="js/custom.min.js"></script>
-        <!--Style Switcher -->
-        <script src="../plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
-    </body>
+        </div>
+        <script src="/public/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/public/plugins/src/notyf/notyf.min.js"></script>
+        <script>
+            var notyf = new Notyf({
+                duration: 3000,
+                position: {
+                    x: 'right',
+                    y: 'top',
+                }});
+            notyf.error('Email or password is incorrect');
+        </script>
+        <div class="notyf" style="justify-content: flex-start; align-items: flex-end;"></div>
+        <div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">Email or password is incorrect</div>
+        <div id="monica-content-root" class="monica-widget"></div></body>
 </html>
