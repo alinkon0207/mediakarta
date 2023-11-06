@@ -1,5 +1,11 @@
 
 <?php
+    $USERNAME = "Merah Putih";
+    $ROLE = "author";
+    
+    $NUM_POSTS = 20;
+    $NUM_LOGS = 360;
+    $NUM_USERS = 2;
 ?>
 
 <!DOCTYPE html>
@@ -72,8 +78,8 @@
                                 <div class="media mx-auto">
                                     <div class="emoji me-2">👋</div>
                                     <div class="media-body">
-                                        <h5>Merah Putih <?php echo $USERNAME; ?></h5>
-                                        <p>author <?php echo $ROLE; ?></p>
+                                        <h5> <?php echo $USERNAME; ?> </h5>
+                                        <p> <?php echo $ROLE; ?> </p>
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +139,8 @@
                                 <img src="/public/assets/img/avatar.png" alt="avatar">
                             </div>
                             <div class="profile-content">
-                                <h6 class="">Merah Putih <?php echo $USERNAME; ?></h6>
-                                <p class="">author <?php echo $ROLE; ?></p>
+                                <h6 class=""> <?php echo $USERNAME; ?> </h6>
+                                <p class=""> <?php echo $ROLE; ?> </p>
                             </div>
                         </div>
                     </div>
@@ -248,7 +254,7 @@
                                                 </svg>
                                             </div>
                                             <div class="">
-                                                <p class="w-value">20</p>
+                                                <p class="w-value"> <?php echo $NUM_POSTS; ?> </p>
                                                 <h5 class="">Posts</h5>
                                             </div>
                                         </div>
@@ -269,7 +275,7 @@
                                                 </svg>
                                             </div>
                                             <div class="">
-                                                <p class="w-value">360</p>
+                                                <p class="w-value"> <?php echo $NUM_LOGS ?> </p>
                                                 <h5 class="">Target Logs</h5>
                                             </div>
                                         </div>
@@ -289,7 +295,7 @@
                                                 </svg>
                                             </div>
                                             <div class="">
-                                                <p class="w-value">2</p>
+                                                <p class="w-value"> <?php echo $NUM_USERS; ?> </p>
                                                 <h5 class="">Users</h5>
                                             </div>
                                         </div>

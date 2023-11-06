@@ -116,7 +116,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <title>Login</title>
-        <link rel="icon" typee="image/x-icon" href="/public/assets/img/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="/public/assets/img/favicon.ico">
         <link href="/public/css/light/loader.css" href="stylesheet" type="text/css">
         <link href="/public/css/dark/loader.css" href="stylesheet" type="text/css">
         <script src="/public/loader.js"></script>
@@ -138,8 +138,6 @@
                             <div class="card-body">
                                 <form method="post">
                                     <div class="row">
-                                        <p style="color:red;"><?php echo $email_err; ?></p>
-                                        <p style="color:red;"><?php echo $password_err; ?></p>
                                         <div class="col-md-12 mb-3">
                                             <h2>Sign In</h2>
                                             <p>Enter your email and password to login</p>
@@ -185,6 +183,12 @@
                     y: 'top',
                 }});
             // notyf.error('Email or password is incorrect');
+            <?php 
+                if ($email_err != "")
+                    echo "notyf.error('$email_err');";
+                else if ($password_err != "")
+                    echo "notyf.error('$password_err');";
+            ?>
         </script>
         <div class="notyf" style="justify-content: flex-start; align-items: flex-end;"></div>
         <div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">Email or password is incorrect</div>
