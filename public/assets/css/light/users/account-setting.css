@@ -1,0 +1,226 @@
+.section {
+    border: 1px solid #e0e6ed;
+    box-shadow: 0 0 40px 0 rgba(94, 92, 154, .06)
+}
+
+.layout-spacing {
+    padding-bottom: 25px
+}
+
+.general-info .info h6,
+.social .info h5 {
+    color: #0e1726;
+    margin: 5px 0 40px;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 1px
+}
+
+.animated-underline-content .nav-tabs li a {
+    font-size: 15px;
+    letter-spacing: 1px
+}
+
+.animated-underline-content .nav-tabs .nav-link.active,
+.animated-underline-content .nav-tabs .show>.nav-link {
+    background-color: transparent;
+    color: #00ab55
+}
+
+.animated-underline-content .nav-tabs .nav-link.active:hover svg,
+.animated-underline-content .nav-tabs .show>.nav-link:hover svg,
+.animated-underline-content .nav-tabs .nav-link.active:hover,
+.animated-underline-content .nav-tabs .show>.nav-link:hover {
+    color: #515365
+}
+
+.animated-underline-content .nav-tabs .nav-link:before {
+    background-color: #00ab55
+}
+
+.general-info {
+    background-color: #fff;
+    border-radius: 6px
+}
+
+.general-info .info,
+.general-info .save-info {
+    padding: 20px
+}
+
+.general-info .info .upload {
+    border-right: 1px solid #191e3a
+}
+
+.general-info .info .upload p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #009688
+}
+
+.general-info .info label {
+    color: #515365;
+    letter-spacing: 1px
+}
+
+.social {
+    background-color: #fff;
+    border-radius: 6px
+}
+
+.social .info,
+.social .save-info {
+    padding: 20px
+}
+
+.social .input-group-text {
+    border-radius: 6px !important;
+    color: #fff;
+    border: none
+}
+
+.input-group .input-group-text svg,
+.input-group:hover .input-group-text svg {
+    color: #009688;
+    fill: none
+}
+
+.social .info input {
+    border-radius: .25rem !important
+}
+
+.payment-info .list-group-item {
+    border: none;
+    border-bottom: 1px solid #e0e6ed;
+    padding-left: 0;
+    padding-right: 0
+}
+
+.payment-info .list-group-item:first-child {
+    border-bottom: 1px solid #e0e6ed
+}
+
+.payment-info .list-group-item:last-child {
+    border: none
+}
+
+.payment-info .list-group-item .billing-content p {
+    color: #888ea8;
+    font-size: 12px
+}
+
+.invoice-action-currency label {
+    padding: 0 25px 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #191e3a;
+    width: 100%;
+    font-size: 16px;
+    color: #e0e6ed;
+    font-weight: 500
+}
+
+.invoice-action-currency a.dropdown-toggle {
+    padding: 9px 38px 9px 45px;
+    width: 100%
+}
+
+.invoice-action-currency a.dropdown-toggle span {
+    vertical-align: middle
+}
+
+.invoice-action-currency .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu {
+    width: 100%;
+    padding: 6px 15px
+}
+
+.invoice-action-currency .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu .dropdown-item {
+    padding: 10px 3px;
+    border-radius: 0;
+    font-size: 16px;
+    line-height: 1.45;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important
+}
+
+.invoice-action-currency .dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu img {
+    vertical-align: sub
+}
+
+.selectable-dropdown a.dropdown-toggle {
+    padding: 11px 35px 10px 15px;
+    position: relative;
+    padding: 12px 20px 12px 44px;
+    border-radius: 6px;
+    transform: none;
+    font-size: 15px;
+    background-color: #fff;
+    letter-spacing: normal;
+    text-align: inherit;
+    color: #3b3f5c;
+    box-shadow: none;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    border: 1px solid #bfc9d4
+}
+
+.selectable-dropdown a.dropdown-toggle img {
+    width: 24px;
+    height: 24px;
+    vertical-align: text-bottom;
+    position: absolute;
+    left: 12px;
+    top: 10px
+}
+
+.selectable-dropdown a.dropdown-toggle .selectable-text {
+    overflow: hidden;
+    display: block
+}
+
+.selectable-dropdown a.dropdown-toggle .selectable-arrow {
+    display: inline-block;
+    position: absolute;
+    padding: 6px 4px;
+    background: #fff;
+    top: 6px;
+    right: 3px
+}
+
+.selectable-dropdown a.dropdown-toggle svg {
+    color: #3b3f5c;
+    width: 15px !important;
+    height: 15px !important;
+    margin: 0;
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out
+}
+
+.selectable-dropdown a.dropdown-toggle.show svg {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+.selectable-dropdown.dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu {
+    right: auto;
+    top: 65px !important
+}
+
+.selectable-dropdown.dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu.show {
+    top: 50px !important
+}
+
+.selectable-dropdown.dropdown:not(.custom-dropdown-icon):not(.custom-dropdown) .dropdown-menu img {
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    vertical-align: top;
+    background: #0e1726;
+    padding: 4px;
+    border-radius: 6px
+}

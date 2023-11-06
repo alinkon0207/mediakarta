@@ -1,0 +1,208 @@
+.fq-header-wrapper {
+    padding: 0
+}
+
+.fq-header-wrapper .faq-header-content {
+    text-align: center;
+    padding-top: 65px;
+    padding-bottom: 65px
+}
+
+.fq-header-wrapper h1 {
+    font-size: 46px;
+    font-weight: 700;
+    color: #0e1726;
+    margin-bottom: 8px
+}
+
+.fq-header-wrapper p {
+    color: #515365;
+    font-size: 16px;
+    margin-bottom: 27px;
+    line-height: 25px
+}
+
+.fq-header-wrapper .autoComplete_wrapper>input {
+    box-shadow: 0 0 40px 0 rgba(94, 92, 154, .06);
+    border: 1px solid #e0e6ed
+}
+
+.faq .faq-layouting .kb-widget-section .card {
+    text-align: center;
+    box-shadow: none;
+    cursor: pointer
+}
+
+.faq .faq-layouting .kb-widget-section .card .card-icon svg {
+    width: 65px;
+    height: 65px;
+    stroke-width: 1px;
+    color: #4361ee;
+    fill: #eceffe
+}
+
+.faq .faq-layouting .kb-widget-section .card .card-title {
+    font-size: 16px;
+    font-weight: 700
+}
+
+.faq .faq-layouting .kb-widget-section .card:hover {
+    box-shadow: rgba(145, 158, 171, .2) 0 0 2px 0, rgba(145, 158, 171, .12) 0 12px 24px -4px
+}
+
+.faq .faq-layouting .kb-widget-section .card:hover .card-title {
+    color: #4361ee
+}
+
+.faq .faq-layouting .fq-tab-section {
+    margin-bottom: 70px;
+    margin-top: 75px
+}
+
+.faq .faq-layouting .fq-tab-section h2 {
+    font-size: 29px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #0e1726
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card {
+    border: none;
+    margin-bottom: 26px;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #e0e6ed;
+    box-shadow: 0 0 40px 0 rgba(94, 92, 154, .06)
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header {
+    padding: 0;
+    border: none;
+    background: 0 0
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header>div {
+    padding: 13px 21px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #4361ee
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div .faq-q-title {
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+    color: #4361ee;
+    font-weight: 600
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div svg.feather-code {
+    width: 17px;
+    vertical-align: middle;
+    margin-right: 11px;
+    color: #3b3f5c
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card:hover .card-header div svg.feather-code {
+    color: #4361ee
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div[aria-expanded=true] svg.feather-code {
+    color: #4361ee
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div .like-faq {
+    display: inline-block;
+    float: right
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div svg.feather-thumbs-up {
+    cursor: pointer;
+    vertical-align: bottom;
+    margin-right: 10px;
+    width: 18px;
+    color: #3b3f5c;
+    fill: rgba(0, 23, 55, .08)
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card:hover .card-header div svg.feather-thumbs-up {
+    color: #4361ee;
+    fill: rgba(27, 85, 226, .07)
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div[aria-expanded=true] svg.feather-thumbs-up {
+    color: #4361ee;
+    fill: rgba(27, 85, 226, .07)
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div span.faq-like-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: #888ea8;
+    fill: rgba(0, 23, 55, .08)
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card:hover .card-header div span.faq-like-count,
+.faq .faq-layouting .fq-tab-section .accordion .card .card-header div[aria-expanded=true] span.faq-like-count {
+    color: #4361ee;
+    fill: rgba(27, 85, 226, .07)
+}
+
+.faq .faq-layouting .fq-tab-section .accordion .card .card-body p {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 23px;
+    color: #888ea8
+}
+
+.faq .faq-layouting .fq-article-section h2 {
+    font-size: 29px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #0e1726
+}
+
+#miniFooterWrapper {
+    color: #fff;
+    font-size: 14px;
+    border-top: solid 1px #0e1726;
+    padding: 14px;
+    -webkit-box-shadow: 0 -6px 10px 0 rgba(0, 0, 0, .14), 0 -1px 18px 0 rgba(0, 0, 0, .12), 0 -3px 5px -1px rgba(0, 0, 0, .2);
+    box-shadow: 0 -6px 10px 0 rgba(0, 0, 0, .14), 0 -1px 18px 0 rgba(0, 0, 0, .12), 0 -3px 5px -1px rgba(0, 0, 0, .2)
+}
+
+#miniFooterWrapper p {
+    color: #888ea8
+}
+
+#miniFooterWrapper .arrow {
+    background-color: #0e1726;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 2;
+    top: -33px;
+    width: 40px;
+    height: 40px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    cursor: pointer
+}
+
+#miniFooterWrapper .arrow p {
+    align-self: center;
+    margin-bottom: 0;
+    color: #009688;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 1px
+}
+
+#miniFooterWrapper .copyright a {
+    color: #009688;
+    font-weight: 700;
+    text-decoration: none
+}
