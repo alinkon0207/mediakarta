@@ -1,5 +1,7 @@
 
 <?php
+    include('../bootstrap.php');
+
     ob_start();
     session_start();
     
@@ -79,7 +81,10 @@
                                 // $sql = "SELECT department FROM employees WHERE email='$email'" ;
                                 $statement = mysqli_query($conn, $sql);
 
-                                header("Location: ../dashboard");
+                                $GLOBALS['USERNAME'] = "Merah Putih";
+                                $GLOBALS['ROLE'] = "author";
+
+                                header("Location: " . BASE_URL . "/dashboard");
 
                                 // Close statement
                                 //mysqli_stmt_close($statement);
@@ -116,17 +121,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <title>Login</title>
-        <link rel="icon" type="image/x-icon" href="/public/assets/img/favicon.ico">
-        <link href="/public/css/light/loader.css" href="stylesheet" type="text/css">
-        <link href="/public/css/dark/loader.css" href="stylesheet" type="text/css">
-        <script src="/public/loader.js"></script>
+        <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/public/assets/img/favicon.ico">
+        <link href="<?php echo BASE_URL; ?>/public/css/light/loader.css" href="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/css/dark/loader.css" href="stylesheet" type="text/css">
+        <script src="<?php echo BASE_URL; ?>/public/loader.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-        <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="/public/css/light/plugins.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
-        <link href="/public/css/dark/plugins.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/dark/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/css/light/plugins.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/css/dark/plugins.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/dark/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
     </head>
 
     <body class="form layout-boxed" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
@@ -173,8 +178,8 @@
                 </div>
             </div>
         </div>
-        <script src="/public/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/public/plugins/src/notyf/notyf.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.js"></script>
         <script>
             var notyf = new Notyf({
                 duration: 3000,

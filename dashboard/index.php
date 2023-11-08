@@ -1,8 +1,7 @@
 
 <?php
-    $USERNAME = "Merah Putih";
-    $ROLE = "author";
-    
+    include('../bootstrap.php');
+
     $NUM_POSTS = 20;
     $NUM_LOGS = 360;
     $NUM_USERS = 2;
@@ -15,27 +14,27 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <title>Dashboard - Nisy Portal</title>
-        <link rel="icon" type="image/x-icon" href="/public/assets/img/favicon.ico">
-        <link href="/public/css/light/loader.css" rel="stylesheet" type="text/css">
-        <script src="/public/loader.js"></script>
+        <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/public/assets/img/favicon.ico">
+        <link href="<?php echo BASE_URL; ?>/public/css/light/loader.css" rel="stylesheet" type="text/css">
+        <script src="<?php echo BASE_URL; ?>/public/loader.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-        <link href="/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="/public/css/light/plugins.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/src/table/datatable/datatables.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/css/light/table/datatable/dt-global_style.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/src/tagify/tagify.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/src/summernote/summernote-lite.min.css" rel="stylesheet" type="text/css">
-        <link href="/public/plugins/css/light/tagify/custom-tagify.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/apps/blog-create.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/users/account-setting.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/pages/knowledge_base.css" rel="stylesheet" type="text/css">
-        <link href="/public/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css">
-        <script src="/public/plugins/src/global/vendors.min.js"></script>
-        <script src="/public/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/public/plugins/src/table/datatable/datatables.js"></script>
+        <link href="<?php echo BASE_URL; ?>/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/css/light/plugins.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/src/table/datatable/datatables.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/css/light/table/datatable/dt-global_style.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/src/tagify/tagify.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/src/summernote/summernote-lite.min.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/plugins/css/light/tagify/custom-tagify.css" rel="stylesheet" type="text/css">
+        <!--<link href="<?php echo BASE_URL; ?>/public/assets/css/light/apps/blog-create.css" rel="stylesheet" type="text/css">-->
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/users/account-setting.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/pages/knowledge_base.css" rel="stylesheet" type="text/css">
+        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css">
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/global/vendors.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/table/datatable/datatables.js"></script>
     </head>
     
     <body class="layout-boxed" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
@@ -69,7 +68,7 @@
                         <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar-container">
                                 <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                    <img alt="avatar" src="/public/assets/img/avatar.png" class="rounded-circle">
+                                    <img alt="avatar" src="<?php echo BASE_URL; ?>/public/assets/img/avatar.png" class="rounded-circle">
                                 </div>
                             </div>
                         </a>
@@ -78,13 +77,13 @@
                                 <div class="media mx-auto">
                                     <div class="emoji me-2">👋</div>
                                     <div class="media-body">
-                                        <h5> <?php echo $USERNAME; ?> </h5>
-                                        <p> <?php echo $ROLE; ?> </p>
+                                        <h5> <?php echo $GLOBALS['USERNAME']; ?> </h5>
+                                        <p> <?php echo $GLOBALS['ROLE']; ?> </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-item">
-                                <a href="/settings">
+                                <a href="<?php echo BASE_URL; ?>/settings">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
                                         <circle cx="12" cy="12" r="3"></circle>
                                         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
@@ -93,7 +92,7 @@
                                 </a>
                             </div>
                             <div class="dropdown-item">
-                                <a href="/logout" class="text-danger">
+                                <a href="<?php echo BASE_URL; ?>/logout" class="text-danger">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                         <polyline points="16 17 21 12 16 7"></polyline>
@@ -116,12 +115,12 @@
                     <div class="navbar-nav theme-brand flex-row  text-center">
                         <div class="nav-logo">
                             <div class="nav-item theme-logo">
-                                <a href="/dashboard">
-                                    <img src="/public/assets/img/nisy64x64.png" class="navbar-logo" alt="logo">
+                                <a href="<?php echo BASE_URL; ?>/dashboard">
+                                    <img src="<?php echo BASE_URL; ?>/public/assets/img/nisy64x64.png" class="navbar-logo" alt="logo">
                                 </a>
                             </div>
                             <div class="nav-item theme-text">
-                                <a href="/dashboard" class="nav-link"> Nisy Portal </a>
+                                <a href="<?php echo BASE_URL; ?>/dashboard" class="nav-link"> Nisy Portal </a>
                             </div>
                         </div>
                         <div class="nav-item sidebar-toggle">
@@ -136,18 +135,18 @@
                     <div class="profile-info">
                         <div class="user-info">
                             <div class="profile-img">
-                                <img src="/public/assets/img/avatar.png" alt="avatar">
+                                <img src="<?php echo BASE_URL; ?>/public/assets/img/avatar.png" alt="avatar">
                             </div>
                             <div class="profile-content">
-                                <h6 class=""> <?php echo $USERNAME; ?> </h6>
-                                <p class=""> <?php echo $ROLE; ?> </p>
+                                <h6 class=""> <?php echo $GLOBALS['USERNAME']; ?> </h6>
+                                <p class=""> <?php echo $GLOBALS['ROLE']; ?> </p>
                             </div>
                         </div>
                     </div>
                     <div class="shadow-bottom"></div>
                     <ul class="list-unstyled menu-categories ps" id="accordionNisy">
                         <li class="menu ">
-                            <a href="/dashboard" aria-expanded="false" class="dropdown-toggle">
+                            <a href="<?php echo BASE_URL; ?>/dashboard" aria-expanded="false" class="dropdown-toggle">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
                                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -176,15 +175,15 @@
                             </a>
                             <ul class="submenu list-unstyled collapse " id="posts" data-bs-parent="#accordionNisy" style="">
                                 <li class="">
-                                    <a href="/posts"> Posts </a>
+                                    <a href="<?php echo BASE_URL; ?>/posts"> Posts </a>
                                 </li>
                                 <li class="">
-                                    <a href="/posts/create"> Create Post </a>
+                                    <a href="<?php echo BASE_URL; ?>/posts/create"> Create Post </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="menu ">
-                            <a href="/logs" aria-expanded="false" class="dropdown-toggle">
+                            <a href="<?php echo BASE_URL; ?>/logs" aria-expanded="false" class="dropdown-toggle">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -198,7 +197,7 @@
                             </a>
                         </li>
                         <li class="menu ">
-                            <a href="/settings" aria-expanded="false" class="dropdown-toggle">
+                            <a href="<?php echo BASE_URL; ?>/settings" aria-expanded="false" class="dropdown-toggle">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
                                         <circle cx="12" cy="12" r="3"></circle>
@@ -209,7 +208,7 @@
                             </a>
                         </li>
                         <li class="menu ">
-                            <a href="/knowledgebase" aria-expanded="false" class="dropdown-toggle">
+                            <a href="<?php echo BASE_URL; ?>/knowledgebase" aria-expanded="false" class="dropdown-toggle">
                                 <div class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle">
                                         <circle cx="12" cy="12" r="10"></circle>
@@ -324,14 +323,14 @@
                 </div>
             </div>
         </div>
-        <script src="/public/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script src="/public/plugins/src/mousetrap/mousetrap.min.js"></script>
-        <script src="/public/plugins/src/waves/waves.min.js"></script>
-        <script src="/public/plugins/src/notyf/notyf.min.js"></script>
-        <script src="/public/plugins/src/summernote/summernote-lite.min.js"></script>
-        <script src="/public/plugins/src/tagify/tagify.min.js"></script>
-        <script src="/public/assets/js/apps/blog-create.js"></script>
-        <script src="/public/app.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/mousetrap/mousetrap.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/waves/waves.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/summernote/summernote-lite.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/tagify/tagify.min.js"></script>
+        <!--<script src="<?php echo BASE_URL; ?>/public/assets/js/apps/blog-create.js"></script>-->
+        <script src="<?php echo BASE_URL; ?>/public/app.js"></script>
         <script>
             var notyf = new Notyf({
                 duration: 3000,
