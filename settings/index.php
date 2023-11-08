@@ -1,10 +1,6 @@
 
 <?php
     include('../bootstrap.php');
-
-    $NUM_POSTS = 20;
-    $NUM_LOGS = 360;
-    $NUM_USERS = 2;
 ?>
 
 <!DOCTYPE html>
