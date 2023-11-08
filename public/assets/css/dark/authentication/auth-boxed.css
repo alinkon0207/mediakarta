@@ -1,1 +1,71 @@
-body.dark:before{display:none}body.dark .card{background-color:transparent;border:1px solid #191e3a}body.dark .auth-container{min-height:100vh}body.dark .auth-container .container{max-width:1440px}body.dark .seperator{position:relative}body.dark .seperator .seperator-text{position:absolute;top:-10px;display:block;text-align:center;width:100%;font-size:15px;font-weight:700;letter-spacing:1px}body.dark .seperator .seperator-text span{background-color:#060818;padding:0 12px;display:inline-block}body.dark .opt-input{padding:12px 14px;text-align:center}body.dark .btn-social-login img{width:25px;height:25px}@media(max-width:575px){body.dark{height:100vh}body.dark .card{border:none}body.dark .auth-container{height:auto}body.dark .auth-container .card{background-color:transparent;box-shadow:none}body.dark .auth-container .card .card-body{padding-top:24px;padding-bottom:24px}}
+body.dark:before {
+    display: none
+}
+
+body.dark .card {
+    background-color: transparent;
+    border: 1px solid #191e3a
+}
+
+body.dark .auth-container {
+    min-height: 100vh
+}
+
+body.dark .auth-container .container {
+    max-width: 1440px
+}
+
+body.dark .seperator {
+    position: relative
+}
+
+body.dark .seperator .seperator-text {
+    position: absolute;
+    top: -10px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px
+}
+
+body.dark .seperator .seperator-text span {
+    background-color: #060818;
+    padding: 0 12px;
+    display: inline-block
+}
+
+body.dark .opt-input {
+    padding: 12px 14px;
+    text-align: center
+}
+
+body.dark .btn-social-login img {
+    width: 25px;
+    height: 25px
+}
+
+@media(max-width:575px) {
+    body.dark {
+        height: 100vh
+    }
+
+    body.dark .card {
+        border: none
+    }
+
+    body.dark .auth-container {
+        height: auto
+    }
+
+    body.dark .auth-container .card {
+        background-color: transparent;
+        box-shadow: none
+    }
+
+    body.dark .auth-container .card .card-body {
+        padding-top: 24px;
+        padding-bottom: 24px
+    }
+}
