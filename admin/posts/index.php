@@ -110,7 +110,7 @@
                                                         <td>Terbaru</td>
                                                         <td class="sorting_1">2023-06-12 08:24:32</td>
                                                         <td>
-                                                            <a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/index.php?id=c6d8857dd7e0ac40">
+                                                            <a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo ADMIN_URL; ?>/posts/edit/index.php?id=c6d8857dd7e0ac40">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
                                                                     <path d="M12 20h9"></path>
                                                                     <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>

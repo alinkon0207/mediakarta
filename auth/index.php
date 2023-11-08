@@ -1,6 +1,6 @@
 
 <?php
-    include('../bootstrap.php');
+    include('../admin/bootstrap.php');
 
     ob_start();
     session_start();
@@ -84,7 +84,7 @@
                                 $GLOBALS['USERNAME'] = "Merah Putih";
                                 $GLOBALS['ROLE'] = "author";
 
-                                header("Location: " . BASE_URL . "/dashboard");
+                                header("Location: " . ADMIN_URL . "/dashboard");
 
                                 // Close statement
                                 //mysqli_stmt_close($statement);

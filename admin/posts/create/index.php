@@ -1,3 +1,4 @@
+
 <?php
     include('../../bootstrap.php');
 ?>
@@ -49,8 +50,8 @@
                             <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>/posts">Posts</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Edit Post</li>
+                                    <li class="breadcrumb-item"><a href="<?php echo ADMIN_URL; ?>/posts">Posts</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Create Post</li>
                                 </ol>
                             </nav>
                         </div>
@@ -60,12 +61,12 @@
                                     <div class="widget-content widget-content-area blog-create-section p-4 pb-0">
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" value="Perdagangan Orang Bermodus Prostitusi Daring Kembali Mencuat di Manado" maxlength="128" required="" autofocus="">
+                                                <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" maxlength="128" required="" autofocus="">
                                             </div>
                                         </div>
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <textarea id="summernote" name="content" style="display: none;">This is summernote edit example</textarea>
+                                                <textarea id="summernote" name="content" style="display: none;">This is summernote creation example</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -74,31 +75,38 @@
                                     <div class="widget-content widget-content-area blog-create-section p-4">
                                         <div class="row">
                                             <div class="col-xxl-12 col-sm-4 col-12 mb-4">
-                                                <button type="submit" name="submit" class="btn btn-primary w-100 _effect--ripple waves-effect waves-light"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> <span class="fw-bold">Edit Post</span></button>
+                                                <button type="submit" name="submit" class="btn btn-primary w-100 _effect--ripple waves-effect waves-light">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-save">
+                                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                                    </svg>
+                                                    <span class="fw-bold">Create Post</span>
+                                                </button>
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="tags">Tags</label>
-                                                <!-- <tags class="tagify blog-tags tagify--noTags tagify--empty" tabindex="-1">
+                                                <!--<tags class="tagify blog-tags tagify--noTags tagify--empty" tabindex="-1">
                                                     <span contenteditable="" tabindex="0" data-placeholder="​" aria-placeholder="" class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
                                                     ​
-                                                </tags> -->
+                                                </tags>-->
                                                 <input id="tags" name="tags" class="blog-tags" value="">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="category">Category</label>
-                                                <tags class="tagify" tabindex="-1">
-                                                    <tag title="Terbaru" contenteditable="false" spellcheck="false" tabindex="-1" class="tagify__tag tagify--noAnim" value="Terbaru"><x title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></x><div><span class="tagify__tag-text">Terbaru</span></div></tag><span tabindex="0" data-placeholder="Choose..." aria-placeholder="Choose..." class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
+                                                <tags class="tagify tagify--noTags tagify--empty" tabindex="-1">
+                                                    <span tabindex="0" data-placeholder="Choose..." aria-placeholder="Choose..." class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
                                                     ​
                                                 </tags>
-                                                <input id="category" name="category" placeholder="Choose..." value="Terbaru">
+                                                <input id="category" name="category" placeholder="Choose...">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="telegram">Telegram (chat_id)</label>
-                                                <input type="number" id="telegram" name="telegram" class="form-control" value="5512935649">
+                                                <input type="number" id="telegram" name="telegram" value="5512935649" class="form-control">
                                             </div>
                                             <div class="col-xxl-12 col-md-12">
                                                 <label for="delay">Delay (ms)</label>
-                                                <input type="number" id="delay" name="delay" class="form-control" min="1000" value="1000">
+                                                <input type="number" id="delay" name="delay" value="1000" class="form-control" min="1000">
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +115,7 @@
                         </form>
                     </div>
                 </div>
-
+                
                 <?php include('../footer.html'); ?>
             </div>
         </div>
