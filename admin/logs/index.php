@@ -74,7 +74,7 @@
                                                 <td>jaksa-agung-rotasi-sejumlah-ka..</td>
                                                 <td class="sorting_1">2023-11-02 16:45:10</td>
                                                 <td>
-                                                    <a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo ADMIN_URL; ?>/logs/detail/index.php?id=ab3293f70f65cf7f">
+                                                    <a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/logs/detail/index.php?id=ab3293f70f65cf7f">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye">
                                                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                                             <circle cx="12" cy="12" r="3"></circle>

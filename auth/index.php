@@ -84,7 +84,7 @@
                                 $GLOBALS['USERNAME'] = "Merah Putih";
                                 $GLOBALS['ROLE'] = "author";
 
-                                header("Location: " . ADMIN_URL . "/dashboard");
+                                header("Location: " . BASE_URL . "/dashboard");
 
                                 // Close statement
                                 //mysqli_stmt_close($statement);
