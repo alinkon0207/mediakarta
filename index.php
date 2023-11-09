@@ -1,153 +1,201 @@
-<!--
-author: Ethredah
-author URL: http://ethredah.github.io
--->
+<?php
+	include('bootstrap.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<link rel="icon" href="images/icon.png">
-<title>Title</title>
-<!-- custom-theme -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Coalition Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- //custom-theme -->
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<!-- js -->
-<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<!-- //js -->
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
-<!-- font-awesome-icons -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
-<!-- //font-awesome-icons -->
-<link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<!-- banner -->
-	<div class="banner">
-		<div class="container">
-			<div class="w3_agile_banner_top">
-				<div class="agile_phone_mail">
-					<ul>
-						<li><i class="fa fa-phone" aria-hidden="true"></i>+(254) 002 100 500</li>
-						<li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:info@Companyonline.net">info@example.com</a></li>
-					</ul>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Informasi lengkapnya mengenai Mediakarta - Kabar Terkini, Berita Terupdate oleh Mediakarta.">
+		<meta name="keywords" content="Bisnis,Bola,Edukasi,Ekonomi,Entrepreneur,Hiburan,Hukum,Internasional,Investment,Kecantikan,Kesehatan,Lifestyle,Market,Metro,Nasional,Olahraga,Opini,Otomotif,Politik,Profil,Sains,Selebriti,Syariah,Teknologi,Terbaru,Travel">
+		<meta name="author" content="mediakarta.com">
+		<title>Mediakarta - Kabar Terkini, Berita Terupdate</title>
+		<link rel="manifest" href="<?php echo BASE_URL; ?>/mediakarta.webmanifest">
+		<link rel="shortcut icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
+		<!--<link rel="apple-touch-icon" sizes="180x180" href="<?php echo BASE_URL; ?>/apple-touch-icon.png">-->
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/plugins/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.css">
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick-theme.css?v=1.0.0">
+		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/css/style.css">
+		<script src="<?php echo BASE_URL; ?>/public/news/plugins/jquery/jquery.js"></script>
+		<script src="<?php echo BASE_URL; ?>/public/news/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script>var bodyWeb = document.getElementsByTagName('body');</script>
+	</head>
+	
+	<body style="" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
+		<?php include('header.html'); ?>
+		
+		<section class="section-padding">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="all-news-block">
+							<h3 class="news-title">
+								<span>Latest News</span>
+							</h3>
+							<div class="all-news">
+								<div class="row">
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+											<div class="post-content">
+												<a class="post-category" href="#">Otomotif</a>
+												<h2 class="post-title mt-3">
+													<a href="<?php echo BASE_URL; ?>/read/index.php?title=informasi-lelang-mobil-murah-jakarta-terbaru-2023">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</a>
+												</h2>
+												<div class="post-meta">
+													<span class="posted-time">19 hours</span>
+												</div>
+												<p>
+													Bagi mereka yang tengah mencari mobil dengan anggaran terbatas, Jakarta saat ini menawarkan peluang emas dengan adanya lelang mobil murah. Dalam tahun 2023, Anda dapat menjumpai berbagai pilihan mob
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+											<div class="post-content">
+												<a class="post-category" href="#">Nasional</a>
+												<h2 class="post-title mt-3">
+													<a href="<?php echo BASE_URL; ?>/read/index.php?title=ditjen-pajak-bogor-lelang-mobil-sitaan-innova-dan-avanza-dibanderol-harga-rp-30-jutaan-rp-40-jutaan">Ditjen Pajak Bogor Lelang Mobil Sitaan, Innova dan Avanza Dibanderol Harga Rp 30 Jutaan-Rp 40 Jutaan</a>
+												</h2>
+												<div class="post-meta">
+													<span class="posted-time">19 hours</span>
+												</div>
+												<p>
+													Saat ini Ditjen Pajak Bogor sedang menggelar lelang beberapa unit mobil bekas murah. Tiga di antara merek mobil sitaan yang dilelang yakni Toyota Kijang Innova, Toyota Avanza dan KIA. Menariknya, mobi
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+										<div class="post-content">
+										<a class="post-category" href="#">Politik</a>
+										<h2 class="post-title mt-3">
+										<a href="/read/survei-sebaran-elektabilitas-capres-di-jawa-barat">Survei Sebaran Elektabilitas Capres di Jawa Barat</a>
+										</h2>
+										<div class="post-meta">
+										<span class="posted-time">1 day ago</span>
+										</div>
+										<p></p>
+										</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+										<div class="post-content">
+										<a class="post-category" href="#">Ekonomi</a>
+										<h2 class="post-title mt-3">
+										<a href="/read/mnc-bank-membuka-peluang-kerja-sama-dengan-koperasi-simpan-pinjam-dalam-penyaluran-kredit-di-tahun-2023">MNC Bank Membuka Peluang Kerja Sama Dengan Koperasi Simpan Pinjam Dalam Penyaluran Kredit di Tahun 2023</a>
+										</h2>
+										<div class="post-meta">
+										<span class="posted-time">1 day ago</span>
+										</div>
+										<p>JAKARTA – PT Bank MNC Internasional Tbk kembali mempererat kerja sama dengan Koperasi Simpan Pinjam Nusantara (Kopnus) dalam penyaluran kredit. Hal ini sebagai upaya perseroan mendorong kinerja peny</p>
+										</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+										<div class="post-content">
+										<a class="post-category" href="#">Bisnis</a>
+										<h2 class="post-title mt-3">
+										<a href="/read/sewa-mobil-manual-matic-lepas-kunci-harian-bulanan-bogor-barat-harga-promo">Sewa Mobil Manual Matic Lepas Kunci Harian Bulanan Bogor Barat Harga Promo</a>
+										</h2>
+										<div class="post-meta">
+										<span class="posted-time">1 day ago</span>
+										</div>
+										<p>Kerap dijadikan tujuan berlibur warga ibu kota, Bogor, memang memiliki daya tarik memikat. Gimana nggak, kamu dapat menemukan sejumlah tempat rekreasi dan panorama alam yang menakjubkan di Bogor. Ngga</p>
+										</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+										<div class="post-content">
+										<a class="post-category" href="#">Terbaru</a>
+										<h2 class="post-title mt-3">
+										<a href="/read/polisi-gali-keterangan-12-saksi-buru-dpo-pembunuh-wanita-di-bogor">Polisi Gali Keterangan 12 Saksi Buru DPO Pembunuh Wanita di Bogor</a>
+										</h2>
+										<div class="post-meta">
+										<span class="posted-time">2 days</span>
+										</div>
+										<p>Bogor - Polisi memeriksa 12 saksi terkait kasus pembunuhan wanita berinisial R di Tanahsareal, Kota Bogor. Terduga pelaku pembunuhan, Muhamad Rosadi Ramadhan (25), saat ini masih diburu polisi."Untuk </p>
+										</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+										<div class="post-content">
+										<a class="post-category" href="#"></a>
+										<h2 class="post-title mt-3">
+										<a href="/read/4-gadis-di-bawah-umur-di-manado-jdi-korban-traffiking-dengan-nama">4 Gadis di bawah Umur di Manado jdi Korban Traffiking, Dengan nama :</a>
+										</h2>
+										<div class="post-meta">
+										<span class="posted-time">1 week ago</span>
+										</div>
+										<p>Nama diatas sudah terindetifikasi alamatnya, pelaku sedang...</p>
+										</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+										<div class="post-content">
+										<a class="post-category" href="#"></a>
+										<h2 class="post-title mt-3">
+										<a href="/read/papih-erlov-viral-menjadi-artis-lokal">Papih Erlov viral menjadi Artis lokal</a>
+										</h2>
+										<div class="post-meta">
+										<span class="posted-time">3 weeks</span>
+										</div>
+										<p>Viral artis baru Papih Erlov</p>
+										</div>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="post-block-wrapper post-float-half clearfix">
+											<div class="post-content">
+												<a class="post-category" href="#"></a>
+												<h2 class="post-title mt-3">
+													<a href="/read/official-trailerhappiness-for-beginners-free-netflix-by-provider">OFFICIAL TRAILER.."Happiness for Beginners" ...free NETFLIX by provider.</a>
+												</h2>
+												<div class="post-meta">
+													<span class="posted-time">3 months</span>
+												</div>
+												<p>A year after her divorce, 32-year-old Helen Carpenter lets her brother persuade her to sign up for a wilderness survival course. Through this experience she discovers that you have to get lost to find</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<nav aria-label="pagination-wrapper" class="pagination-wrapper">
+							<ul class="pagination justify-content-center">
+								<li class="page-item active"><a class="page-link" href="?page=1">1</a></li>
+								<li class="page-item "><a class="page-link" href="?page=2">2</a></li>
+								<li class="page-item "><a class="page-link" href="?page=3">3</a></li>
+								<li class="page-item "><a class="page-link" href="?page=4">4</a></li>
+								<li class="page-item">
+									<a class="page-link" href="?page=2" aria-label="Next">
+										<span class="">Next</span>
+										<span aria-hidden="true"><i class="fa fa-angle-double-right ml-2"></i></span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
 				</div>
 			</div>
-			<div class="agileits_w3layouts_banner_nav">
-				<nav class="navbar navbar-default">
-					<div class="navbar-header navbar-left">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<h1><a class="navbar-brand" href="index.php"><img src="images/logo.png" class="img-responsive"></a></h1>
-					</div>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-						<nav class="cl-effect-13" id="cl-effect-13">
-						<ul class="nav navbar-nav">
-							<li class="active"><a href="index.php">Home</a></li>
-							<li><a href="about.php">About</a></li>
-							<li><a href="portfolio.php">Products</a></li>
-							<li><a href="blog.php">Blog</a></li>
-							<li><a href="contact.php">Contact</a></li>
-						</ul>
-						
-					</nav>
-
-					</div>
-				</nav>
-			</div>
-			<div class="wthree_banner_info">
-				
-				<section class="slider">
-					<div class="flexslider">
-						<ul class="slides">
-							<li>
-								<h3>Lorem ipsum dolor ..?</h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-								
-							</li>
-							<li>
-								<h3>Our Mission.. </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-								
-							</li>
-							<li>
-								<h3>Lorem ipsum dolor </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-							
-							</li>
-							<li>
-								<h3>Our Vision... </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-								
-							</li>
-							<li>
-								<h3>Lorem ipsum dolor? </h3>
-								<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p> <i style="color: orange;">--find out more</i>
-								
-							</li>
-						</ul>
-					</div>
-				</section>
-				<!-- flexSlider -->
-					<script defer src="js/jquery.flexslider.js"></script>
-					<script type="text/javascript">
-					$(window).load(function(){
-					  $('.flexslider').flexslider({
-						animation: "slide",
-						start: function(slider){
-						  $('body').removeClass('loading');
-						}
-					  });
-					});
-				  </script>
-				<!-- //flexSlider -->
-			</div>
-		</div>
-	</div>
-<!-- //banner -->
-
-<!-- content -->
-<div class="process all_pad agileits">
+		</section>
 	
-	<?php
-				if (isset($_GET["subscribed"])) {
-					echo 
-					'<div class="alert alert-success" >
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-                         <strong>SUBSCRIBED!! </strong><p> Thank you for subscribing with us. We will keep you informed on what is happening with Company.</p>
-                    </div>'
-					;
-				}
-				elseif (isset($_GET["fail"])) {
-					echo 
-					'<div class="alert alert-danger" >
-                          <a href="#" class="close" data-dismiss="alert" aria-label="close"></a>
-                         <strong>Ooops!! </strong><p> Looks like you are already subscribed to our mailing list :) </p>
-                    </div>'
-					;
-				}
-			?>	
+		<?php include('footer.html'); ?>
+		
+		<script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
+		<script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>
 
-</div>	
-<!-- //process -->
-
-
-
-<!-- footer -->
-	
-	<?php 
-		include("footer.php");
-	?>
-
+		<div id="monica-content-root" class="monica-widget"></div>
+	</body>
+</html>
