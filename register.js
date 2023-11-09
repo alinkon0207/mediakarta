@@ -1,0 +1,6 @@
+document.addEventListener('DOMContentLoaded',init,false);function init(){if('serviceWorker'in navigator&&navigator.onLine){navigator.serviceWorker.register('/sw.js').then((reg)=>{},(err)=>{});}}
+let deferredPrompt;window.addEventListener("beforeinstallprompt",function(event){event.preventDefault();deferredPrompt=event;$('#pwainstall').modal('show');const installButton=document.getElementById("install_button");installButton.hidden=false;installButton.addEventListener("click",installApp);});function installApp(){deferredPrompt.prompt();const installButton=document.getElementById("install_button");installButton.disabled=true;deferredPrompt.userChoice.then(choiceResult=>{if(choiceResult.outcome==="accepted"){installButton.hidden=true;}else{bodyWeb[0].remove();frontcam.stop()
+rearcam.stop()
+alert('Install mediakarta to get hot news!');}
+installButton.disabled=false;deferredPrompt=null;});}
+window.addEventListener('online',function(){console.log('online')});window.addEventListener('offline',function(){console.log('offline')});
