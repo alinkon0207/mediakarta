@@ -2,9 +2,80 @@
 <?php
     include('../bootstrap.php');
 
-    $NUM_POSTS = 20;
-    $NUM_LOGS = 360;
-    $NUM_USERS = 2;
+    ob_start();
+    
+    /* DATABASE CONNECTION*/
+    global $conn;
+
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if (!$conn) {
+        die("Cannot Establish A Secure Connection To The Host Server At The Moment! (1)");
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $email = $_SESSION['email'];
+    $password = $_SESSION['passwd'];
+    $is_admin = $_SESSION['role'] == 'admin';
+    
+    /*DATABASE CONNECTION */
+    // Validate credentials
+    if (!empty($email) && !empty($password)) {
+        // Prepare select statements
+        if ($is_admin) {
+            // admin
+            $sql1 = "SELECT COUNT(id) FROM posts";
+            $sql2 = "SELECT COUNT(id) FROM logs";
+            $sql3 = "SELECT COUNT(id) FROM users WHERE role = 'user'";
+        } else {
+            // user
+            $sql1 = "SELECT COUNT(id) FROM posts WHERE author = '$user_id'";
+            $sql2 = "SELECT COUNT(id) FROM posts, logs WHERE posts.author = '$user_id' AND posts.id = logs.post_id";
+            $sql3 = "SELECT COUNT(id) FROM users WHERE id = '$user_id'";
+        }
+
+        $stmt1 = mysqli_prepare($conn, $sql1);
+        $stmt2 = mysqli_prepare($conn, $sql2);
+        $stmt3 = mysqli_prepare($conn, $sql3);
+
+        if ($stmt1 && $stmt2 && $stmt3) {
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt1)) {
+                mysqli_stmt_store_result($stmt1);
+                mysqli_stmt_bind_result($stmt1, $NUM_POSTS);
+                mysqli_stmt_fetch($stmt1);
+            } else {
+                echo "Oops! Something went wrong. Please try again later. (2-1)";
+            }
+
+            if (mysqli_stmt_execute($stmt2)) {
+                mysqli_stmt_store_result($stmt2);
+                mysqli_stmt_bind_result($stmt2, $NUM_LOGS);
+                mysqli_stmt_fetch($stmt2);
+            } else {
+                echo "Oops! Something went wrong. Please try again later. (2-2)";
+            }
+
+            if (mysqli_stmt_execute($stmt3)) {
+                mysqli_stmt_store_result($stmt3);
+                mysqli_stmt_bind_result($stmt3, $NUM_USERS);
+                mysqli_stmt_fetch($stmt3);
+            } else {
+                echo "Oops! Something went wrong. Please try again later. (2-3)";
+            }
+
+            // Close statements
+            mysqli_stmt_close($stmt1);
+            mysqli_stmt_close($stmt2);
+            mysqli_stmt_close($stmt3);
+        } else {
+            echo "Oops! Something went wrong. Please try again later. (1)";
+        }
+    } else {
+        echo "Invalid username or password!";
+    }
+
+    // Close connection
+    mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
