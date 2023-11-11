@@ -3,7 +3,6 @@
     include('../admin/bootstrap.php');
 
     ob_start();
-    session_start();
     
     // LOGIN SCRIPT
     
@@ -11,7 +10,7 @@
     $db['db_host'] = 'localhost';
     $db['db_user'] = 'root';
     $db['db_pass'] = '';
-    $db['db_name'] = 'Company';
+    $db['db_name'] = 'bms_db';
 
     foreach ($db as $key=>$value) {
         define(strtoupper($key), $value);
@@ -25,7 +24,7 @@
     }
 
     try {
-        $db = new PDO('mysql:dbhost=localhost;dbname=Company;charset=utf8', DB_USER, DB_PASS);
+        $db = new PDO('mysql:dbhost=' . DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
     } catch (Exception $e) {
         die('Cannot Establish A Secure Connection To The Host Server At The Moment! (2)');
     }
@@ -54,14 +53,10 @@
         // Validate credentials
         if (empty($email_err) && empty($password_err)) {
             // Prepare a select statement
-            $sql = "SELECT email, password FROM admin WHERE email = ?";
-            
+            $sql = "SELECT passwd, fullname, role FROM users WHERE email = ?";
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "s", $param_email);
-
-                // Set parameters
-                $param_email = $email;
+                mysqli_stmt_bind_param($stmt, "s", $email);
 
                 // Attempt to execute the prepared statement
                 if (mysqli_stmt_execute($stmt)) {
@@ -71,25 +66,17 @@
                     // Check if email exists, if yes then verify password
                     if (mysqli_stmt_num_rows($stmt) == 1) {
                         // Bind result variables
-                        mysqli_stmt_bind_result($stmt, $email, $hashed_password);
+                        mysqli_stmt_bind_result($stmt, $hashed_password, $username, $role);
                         if (mysqli_stmt_fetch($stmt)) {
                             if (password_verify($password, $hashed_password)) {
                                 /* Password is correct, so start a new session and
                                 save the email to the session */
                                 $_SESSION['email'] = $email;
-
-                                // $sql = "SELECT department FROM employees WHERE email='$email'" ;
-                                $statement = mysqli_query($conn, $sql);
-
-                                $GLOBALS['USERNAME'] = "Merah Putih";
-                                $GLOBALS['ROLE'] = "author";
+                                $_SESSION['passwd'] = $password;
+                                $_SESSION['username'] = $username;
+                                $_SESSION['role'] = $role;
 
                                 header("Location: " . BASE_URL . "/dashboard");
-
-                                // Close statement
-                                //mysqli_stmt_close($statement);
-
-                                //header("location: sales");
                             } else {
                                 // Display an error message if password is not valid
                                 $password_err = 'The password you entered was not valid. Please try again.';
@@ -102,10 +89,10 @@
                 } else {
                     echo "Oops! Something went wrong. Please try again later.";
                 }
-            }
 
-            // Close statement
-            mysqli_stmt_close($stmt);
+                // Close statement
+                mysqli_stmt_close($stmt);
+            }
         }
 
         // Close connection
