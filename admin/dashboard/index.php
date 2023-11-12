@@ -4,14 +4,6 @@
 
     ob_start();
     
-    /* DATABASE CONNECTION*/
-    global $conn;
-
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if (!$conn) {
-        die("Cannot Establish A Secure Connection To The Host Server At The Moment! (1)");
-    }
-
     $user_id = $_SESSION['user_id'];
     $email = $_SESSION['email'];
     $password = $_SESSION['passwd'];
@@ -20,6 +12,14 @@
     /*DATABASE CONNECTION */
     // Validate credentials
     if (!empty($email) && !empty($password)) {
+        /* DATABASE CONNECTION*/
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment! (1)");
+        }
+
         // Prepare select statements
         if ($is_admin) {
             // admin

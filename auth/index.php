@@ -1,29 +1,28 @@
-
+<!--- LOGIN SCRIPT----->
 <?php
     include('../admin/bootstrap.php');
 
     ob_start();
     
-    // LOGIN SCRIPT
-    global $conn;
-
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if (!$conn) {
-        die("Cannot Establish A Secure Connection To The Host Server At The Moment! (1)");
-    }
-
-    /*DATABASE CONNECTION */
     // Define variables and initialize with empty values
     $email = $password = "";
     $email_err = $password_err = "";
 
     // Processing form data when form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
+
         // Check if email is empty
-        if (empty(trim($_POST["email"]))) {
+        if (empty(trim($_POST['email']))) {
             $email_err = 'Please enter an email address.';
         } else {
-            $email = trim($_POST["email"]);
+            $email = trim($_POST['email']);
         }
 
         // Check if password is empty
@@ -160,11 +159,10 @@
                     x: 'right',
                     y: 'top',
                 }});
-            // notyf.error('Email or password is incorrect');
             <?php 
                 if ($email_err != "")
                     echo "notyf.error('$email_err');";
-                else if ($password_err != "")
+                if ($password_err != "")
                     echo "notyf.error('$password_err');";
             ?>
         </script>
