@@ -8,6 +8,8 @@
     $_SESSION['passwd'] = '';
     $_SESSION['username'] = '';
     $_SESSION['role'] = '';
+    $_SESSION['tg_chat_id'] = '';
+    $_SESSION['delay'] = '';
 
     header("Location: " . BASE_URL . "/../auth");
 ?>

@@ -13,8 +13,8 @@
 		<meta name="author" content="mediakarta.com">
 		<title>Mediakarta - Kabar Terkini, Berita Terupdate</title>
 		<link rel="manifest" href="<?php echo BASE_URL; ?>/mediakarta.webmanifest">
-		<link rel="shortcut icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="<?php echo BASE_URL; ?>/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="<?php echo BASE_URL; ?>/logo.png" type="image/png">
+		<link rel="icon" href="<?php echo BASE_URL; ?>/logo.png" type="image/png">
 		<!--<link rel="apple-touch-icon" sizes="180x180" href="<?php echo BASE_URL; ?>/apple-touch-icon.png">-->
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/plugins/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/news/plugins/font-awesome/css/font-awesome.min.css">

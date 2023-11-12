@@ -36,7 +36,7 @@
         // Validate credentials
         if (empty($email_err) && empty($password_err)) {
             // Prepare a select statement
-            $sql = "SELECT id, passwd, fullname, role FROM users WHERE email = ?";
+            $sql = "SELECT id, passwd, fullname, role, tg_chat_id, delay FROM users WHERE email = ?";
             if ($stmt = mysqli_prepare($conn, $sql)) {
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -49,7 +49,7 @@
                     // Check if email exists, verify password
                     if (mysqli_stmt_num_rows($stmt) == 1) {
                         // Bind result variables
-                        mysqli_stmt_bind_result($stmt, $user_id, $hashed_password, $username, $role);
+                        mysqli_stmt_bind_result($stmt, $user_id, $hashed_password, $username, $role, $tg_chat_id, $delay);
                         if (mysqli_stmt_fetch($stmt)) {
                             if (password_verify($password, $hashed_password)) {
                                 /* Password is correct, so start a new session and
@@ -59,6 +59,8 @@
                                 $_SESSION['passwd'] = $password;
                                 $_SESSION['username'] = $username;
                                 $_SESSION['role'] = $role;
+                                $_SESSION['tg_chat_id'] = $tg_chat_id;
+                                $_SESSION['delay'] = $delay;
 
                                 header("Location: " . BASE_URL . "/dashboard");
                             } else {
@@ -92,17 +94,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <title>Login</title>
-        <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/public/assets/img/favicon.ico">
-        <link href="<?php echo BASE_URL; ?>/public/css/light/loader.css" href="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/css/dark/loader.css" href="stylesheet" type="text/css">
+        <link rel="icon" href="<?php echo BASE_URL; ?>/public/assets/img/logo.png" type="image/png">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/css/light/loader.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/css/dark/loader.css" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,700">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/css/light/plugins.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/authentication/auth-boxed.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/css/dark/plugins.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/dark/authentication/auth-boxed.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.css" type="text/css">
         <script src="<?php echo BASE_URL; ?>/public/loader.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-        <link href="<?php echo BASE_URL; ?>/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/css/light/plugins.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/css/dark/plugins.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/dark/authentication/auth-boxed.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
     </head>
 
     <body class="form layout-boxed" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">

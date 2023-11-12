@@ -9,25 +9,25 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-        <title>Dashboard - Nisy Portal</title>
-        <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/public/assets/img/favicon.ico">
-        <link href="<?php echo BASE_URL; ?>/public/css/light/loader.css" rel="stylesheet" type="text/css">
+        <title>Dashboard - EAGLEeye</title>
+        <link rel="icon" href="<?php echo BASE_URL; ?>/public/assets/img/logo.png" type="image/png">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/css/light/loader.css" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,600,700">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/css/light/plugins.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/table/datatable/datatables.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/css/light/table/datatable/dt-global_style.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/tagify/tagify.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/summernote/summernote-lite.min.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/css/light/tagify/custom-tagify.css" type="text/css">
+        <!--<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/apps/blog-create.css" type="text/css">-->
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/components/tabs.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/components/list-group.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/users/account-setting.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/pages/knowledge_base.css" type="text/css">
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/dashboard/dash_1.css" type="text/css">
         <script src="<?php echo BASE_URL; ?>/public/loader.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-        <link href="<?php echo BASE_URL; ?>/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/css/light/plugins.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/src/table/datatable/datatables.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/css/light/table/datatable/dt-global_style.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/src/notyf/notyf.min.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/src/tagify/tagify.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/src/summernote/summernote-lite.min.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/plugins/css/light/tagify/custom-tagify.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/apps/blog-create.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/components/tabs.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/users/account-setting.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/pages/knowledge_base.css" rel="stylesheet" type="text/css">
-        <link href="<?php echo BASE_URL; ?>/public/assets/css/light/dashboard/dash_1.css" rel="stylesheet" type="text/css">
         <script src="<?php echo BASE_URL; ?>/public/plugins/src/global/vendors.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/plugins/src/table/datatable/datatables.js"></script>
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <textarea id="summernote" name="content" style="display: none;">This is summernote creation example</textarea>
+                                                <textarea id="summernote" name="content" style="display: none;"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -86,27 +86,27 @@
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="tags">Tags</label>
-                                                <!--<tags class="tagify blog-tags tagify--noTags tagify--empty" tabindex="-1">
+                                                <tags class="tagify blog-tags tagify--noTags tagify--empty" tabindex="-1">
                                                     <span contenteditable="" tabindex="0" data-placeholder="​" aria-placeholder="" class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
-                                                    ​
-                                                </tags>-->
+                                                    &ZeroWidthSpace;
+                                                </tags>
                                                 <input id="tags" name="tags" class="blog-tags" value="">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="category">Category</label>
                                                 <tags class="tagify tagify--noTags tagify--empty" tabindex="-1">
                                                     <span tabindex="0" data-placeholder="Choose..." aria-placeholder="Choose..." class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
-                                                    ​
+                                                    &ZeroWidthSpace;
                                                 </tags>
                                                 <input id="category" name="category" placeholder="Choose...">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="telegram">Telegram (chat_id)</label>
-                                                <input type="number" id="telegram" name="telegram" value="5512935649" class="form-control">
+                                                <input type="number" id="telegram" name="telegram" value="<?php echo $_SESSION['tg_chat_id']; ?>" class="form-control">
                                             </div>
                                             <div class="col-xxl-12 col-md-12">
                                                 <label for="delay">Delay (ms)</label>
-                                                <input type="number" id="delay" name="delay" value="1000" class="form-control" min="1000">
+                                                <input type="number" id="delay" name="delay" value="<?php echo $_SESSION['delay']; ?>" class="form-control" min="1000">
                                             </div>
                                         </div>
                                     </div>
