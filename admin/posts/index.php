@@ -1,6 +1,52 @@
 
 <?php
     include('../bootstrap.php');
+
+    /*DATABASE CONNECTION */
+    global $conn;
+
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    if (!$conn) {
+        die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+    }
+
+    $user_id = $_SESSION['user_id'];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
+    } else {
+        if ($_SESSION['role'] == 'admin') {
+            $sql = "SELECT id, title, permalink, category, date, contents, tags FROM posts";
+        } else {
+            $sql = "SELECT id, title, permalink, category, date, contents, tags FROM posts WHERE author = $user_id";
+        }
+    
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Execute the statement
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+    
+            // Count records & pages
+            $records = mysqli_stmt_num_rows($stmt);
+            $npage = 1;
+            $pages = intdiv($records + 9, 10);
+
+            mysqli_stmt_close($stmt);
+
+            // Fetch rows
+            $sql = $sql . " LIMIT 10";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                // Execute the statement
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_store_result($stmt);
+
+                $result = mysqli_query($conn, $sql);
+            }
+        }
+    }
+
+    // Close connection
+    mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -95,42 +141,49 @@
                                                         <th width="70" class="sorting_disabled" rowspan="1" colspan="1" style="width: 50px;" aria-label="Option">Option</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr role="row">
-                                                        <td>Perdagangan Orang Bermodus Prostitusi Daring Kembali Mencuat di Manado
-                                                            <small>
-                                                                <a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/perdagangan-orang-bermodus-prostitusi-daring-kembali-mencuat-di-manado`)" title="Copy Link">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">
-                                                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                                                    </svg>
-                                                                </a>
-                                                            </small>
-                                                        </td>
-                                                        <td>Terbaru</td>
-                                                        <td class="sorting_1">2023-06-12 08:24:32</td>
-                                                        <td>
-                                                            <a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/index.php?id=c6d8857dd7e0ac40">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
-                                                                    <path d="M12 20h9"></path>
-                                                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                                                                </svg>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr role="row"><td>6 Potret Cantik Nataliya Goncharova yang Disebut Atlet Voli Termahal di Dunia <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/6-potret-cantik-nataliya-goncharova-yang-disebut-atlet-voli-termahal-di-dunia-4403`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Selebriti</td><td class="sorting_1">2023-05-09 18:36:00</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/4e4035b789bd93da"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>5 Potret Hana Hanifah Liburan di Bali, Pamer Body Goals <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/5-potret-hana-hanifah-liburan-di-bali-pamer-body-goals-6082`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Selebriti</td><td class="sorting_1">2023-05-09 18:37:08</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/6f0ff8256a7488f8"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Marshel Widianto Klarifikasi Soal Kabar Nikahi Celine Evangelista, Sempat Dibilang Gimmick <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/marshel-widianto-klarifikasi-soal-kabar-nikahi-celine-evangelista-sempat-dibilang-gimmick-3278`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Lifestyle</td><td class="sorting_1">2023-05-21 09:02:11</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/3fa2dd78ef5f10ed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Wanita Kondangan Pakai Dress Transparan Bikini, Gayanya Viral Dihujat  Baca artikel wolipop, "Wanita Kondangan Pakai Dress  <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/wanita-kondangan-pakai-dress-transparan-bikini-gayanya-viral-dihujat-baca-artikel-wolipop-wanita-kondangan-pakai-dress-trans-6263`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Lifestyle</td><td class="sorting_1">2023-05-10 16:46:58</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/626c3f1729110178"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Jaksa Agung Rotasi Sejumlah Kajati dan Wakajati, Ini Daftarnya  Baca artikel detiknews, "Jaksa Agung Rotasi Sejumlah Kajati <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/jaksa-agung-rotasi-sejumlah-kajati-dan-wakajati-ini-daftarnya-baca-artikel-detiknews-jaksa-agung-rotasi-sejumlah-kajati-dan-9559`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Hukum, Politik</td><td class="sorting_1">2023-06-12 10:22:11</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/c95599006816ff0d"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Geledah Kantor Kemenhub, KPK Sita Uang Rp 5,6 Miliar <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/geledah-kantor-kemenhub-kpk-sita-uang-rp-56-miliar`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Hukum</td><td class="sorting_1">2023-07-10 14:37:14</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/d27c7d1d78afeed2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Trik menang dalam Slot Aku Bantu WD mau gak ka?      ✨ Nama Rekening :  ✨ Nomor Rekening :  ✨ Jenis Bank :  ✨ No WhatsAp <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/trik-menang-dalam-slot-aku-bantu-wd-mau-gak-ka-nama-rekening-nomor-rekening-jenis-bank-no-whatsap-1681`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Hiburan</td><td class="sorting_1">2023-05-23 16:37:48</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/1e6b8fbaf1f34a5b"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Perjuangan sekawan yang tidak ada henti <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/perjuangan-sekawan-yang-tidak-ada-henti-5389`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Entrepreneur</td><td class="sorting_1">2023-05-09 18:44:03</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="<?php echo BASE_URL; ?>/posts/edit/538ee97264784277"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr><tr role="row"><td>Musim Panen Raya, Harga Beras di Pasar Kramat Jati Tak Kunjung Turun <small><a href="javascript:void(0);" onclick="copyToClipboard(`https://mediakarta.com/read/musim-panen-raya-harga-beras-di-pasar-kramat-jati-tak-kunjung-turun-2936`)" title="Copy Link"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></a></small></td><td>Ekonomi</td><td class="sorting_1">2023-05-12 07:19:43</td><td><a class="badge badge-light-primary text-start me-2 action-edit" href="/posts/edit/fa2ac93beab62135"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a></td></tr>
-                                                </tbody>
+                                                <?php
+                                                    if ($records > 0) {
+                                                        echo "<tbody>";
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                            echo '<tr role="row">
+                                                                <td>' . $row['title'] . '
+                                                                    <small>
+                                                                        <a href="javascript:void(0);" onclick="copyToClipboard(\'' . BASE_URL . '/read/' . $row['permalink'] . '\')" title="Copy Link">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy">
+                                                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                                                            </svg>
+                                                                        </a>
+                                                                    </small>
+                                                                </td>
+                                                                <td>' . $row['category'] . '</td>
+                                                                <td class="sorting_1">' . $row['date'] . '</td>
+                                                                <td>
+                                                                    <a class="badge badge-light-primary text-start me-2 action-edit" href="' . BASE_URL . '/posts/edit/index.php?id=' . $row['id'] . '">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+                                                                            <path d="M12 20h9"></path>
+                                                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                                                        </svg>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>';
+                                                        }
+                                                        echo "</tbody>";
+                                                    }
+
+                                                    mysqli_stmt_close($stmt);
+                                                ?>
                                             </table>
-                                            <!--<div id="zero-config_processing" class="dataTables_processing card" style="display: none;">Processing...</div>-->
+                                            <div id="zero-config_processing" class="dataTables_processing card" style="display: none;">Processing...</div>
                                         </div>
                                         <div class="dt--bottom-section d-sm-flex justify-content-sm-between text-center">
                                             <div class="dt--pages-count  mb-sm-0 mb-3">
-                                                <div class="dataTables_info" id="zero-config_info" role="status" aria-live="polite">Showing page 1 of 2</div>
+                                                <div class="dataTables_info" id="zero-config_info" role="status" aria-live="polite">Showing page <?php echo $npage; ?> of <?php echo $pages; ?></div>
                                             </div>
                                             <div class="dt--pagination">
                                                 <div class="dataTables_paginate paging_simple_numbers" id="zero-config_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled" id="zero-config_previous">
+                                                        <li class="paginate_button page-item previous<?php echo ($npage == 1) ? " disabled" : ""; ?>" id="zero-config_previous">
                                                             <a href="#" aria-controls="zero-config" data-dt-idx="0" tabindex="0" class="page-link">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
                                                                     <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -138,13 +191,14 @@
                                                                 </svg>
                                                             </a>
                                                         </li>
-                                                        <li class="paginate_button page-item active">
-                                                            <a href="#" aria-controls="zero-config" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item ">
-                                                            <a href="#" aria-controls="zero-config" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                                                        </li>
-                                                        <li class="paginate_button page-item next" id="zero-config_next">
+                                                        <?php
+                                                            for ($i = 1; $i <= $pages; $i++) {
+                                                                echo '<li class="paginate_button page-item' . (($i == $npage) ? " active" : "") . '">
+                                                                    <a href="#" aria-controls="zero-config" data-dt-idx="1" tabindex="0" class="page-link">'. $i . '</a>
+                                                                </li>';
+                                                            }
+                                                        ?>
+                                                        <li class="paginate_button page-item next<?php echo ($npage == $pages) ? " disabled" : ""; ?>" id="zero-config_next">
                                                             <a href="#" aria-controls="zero-config" data-dt-idx="3" tabindex="0" class="page-link">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
                                                                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -160,36 +214,39 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <script>
-                            $('#zero-config').DataTable({
-                                "processing": true,
-                                "serverSide": true,
-                                "ajax": {
-                                    "url": "<?php echo BASE_URL; ?>/posts/data",
-                                    "type": "POST"
-                                },
-                                "columns": [
-                                    { "data": "id", "visible": false },
-                                    { "data": "title" },
-                                    { "data": "content", "visible": false },
-                                    { "data": "category" },
-                                    { "data": "created_at" },
-                                    { "data": "option", "orderable": false }
-                                ],
-                                "order": [[4, "desc"]],
-                                "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
-                                "<'table-responsive'tr>" +
-                                "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
-                                "oLanguage": {
-                                    "oPaginate": { "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' },
-                                    "sInfo": "Showing page _PAGE_ of _PAGES_",
-                                    "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
-                                    "sSearchPlaceholder": "Search...",
-                                    "sLengthMenu": "Results :  _MENU_",
-                                },
-                                "stripeClasses": []
-                            });
-                        </script> -->
+                        <script>
+                            // $('#zero-config').DataTable({
+                            //     "processing": true,
+                            //     "serverSide": true,
+                            //     "ajax": {
+                            //         "url": "<?php echo BASE_URL; ?>/posts/data",
+                            //         "type": "POST"
+                            //     },
+                            //     "columns": [
+                            //         { "data": "id", "visible": false },
+                            //         { "data": "title" },
+                            //         { "data": "content", "visible": false },
+                            //         { "data": "category" },
+                            //         { "data": "created_at" },
+                            //         { "data": "option", "orderable": false }
+                            //     ],
+                            //     "order": [[4, "desc"]],
+                            //     "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +
+                            //     "<'table-responsive'tr>" +
+                            //     "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+                            //     "oLanguage": {
+                            //         "oPaginate": { 
+                            //             "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>', 
+                            //             "sNext": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' 
+                            //         },
+                            //         "sInfo": "Showing page _PAGE_ of _PAGES_",
+                            //         "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                            //         "sSearchPlaceholder": "Search...",
+                            //         "sLengthMenu": "Results :  _MENU_",
+                            //     },
+                            //     "stripeClasses": []
+                            // });
+                        </script>
                     </div>
                 </div>
                 

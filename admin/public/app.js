@@ -300,7 +300,13 @@ var App = function () {
 }();
 window.addEventListener('load', function () { App.init('layout'); })
 function copyToClipboard(copyText) { 
-    navigator.clipboard.writeText(copyText).then(() => { 
+    if (navigator.clipboard) {
+      // Clipboard API is supported
+      navigator.clipboard.writeText(copyText).then(() => { 
         alert("Copied to clipboard"); 
-    }); 
+      }); 
+    } else {
+      alert('Clipboard API is not supported');
+      return;
+    }
 }
