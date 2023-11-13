@@ -1,5 +1,137 @@
 <?php
     include('../../bootstrap.php');
+
+    ob_start();
+    
+    // Define variables and initialize with empty values
+    $title = "";
+    $content = "";
+    $tags = "";
+    $category = "";
+
+    $id = $_GET['id'];
+
+    // Processing form data when form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
+
+        // Prepare a select statement
+        $sql = "SELECT title, contents, tags, category FROM posts WHERE id = $id";
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                // Check if email exists, verify password
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $title, $content, $tags, $category);
+                    mysqli_stmt_fetch($stmt);
+                } else {
+                    // Display an error message if email doesn't exist
+                    $email_err = 'No post found with that id. Please recheck and try again.';
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $title_err = "";
+        $content_err = "";
+        $tags_err = "";
+        $category_err = "";
+        $msg = $error_msg = "";
+        
+        // Check if title is empty
+        if (empty(trim($_POST['title']))) {
+            $title_err = 'Please enter title.';
+        } else {
+            $title = trim($_POST['title']);
+        }
+
+        // Check if content is empty
+        if (empty(trim($_POST['content']))) {
+            $content_err = 'Please enter content.';
+        } else {
+            $content = trim($_POST['content']);
+        }
+
+        // Check if tags is empty
+        if (empty(trim($_POST['tags']))) {
+            $tags_err = 'Please enter tags.';
+        } else {
+            $tags = trim($_POST['tags']);
+            $tags_str = tags_to_string($tags);
+        }
+
+        // Check if category is empty
+        if (empty(trim($_POST['category']))) {
+            $category_err = 'Please enter category.';
+        } else {
+            $category = trim($_POST['category']);
+            $category_str = tags_to_string($category);
+        }
+
+        // Validate credentials
+        if (empty($title_err) && empty($content_err) && empty($tags_err) && empty($category_err)) {
+            /*DATABASE CONNECTION */
+            global $conn;
+
+            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            if (!$conn) {
+                die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+            }
+
+            $permalink = title_to_permalink($title);
+            $permalink = strtolower($permalink);
+
+            $sql = "SELECT title FROM posts WHERE id = $id";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                // Execute the statement
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) > 0) {
+                    mysqli_stmt_close($stmt);
+
+                    // Prepare a INSERT statement
+                    $sql = "UPDATE posts " . 
+                            "SET title='$title', permalink='$permalink', category='$category_str', contents='$content', tags='$tags_str' " . 
+                            "WHERE id=$id";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        // Attempt to execute the prepared statement
+                        if (mysqli_stmt_execute($stmt)) {
+                            // Store result
+                            mysqli_stmt_store_result($stmt);
+
+                            $msg = "Post updated successfully.";
+                        } else {
+                            echo "Oops! Something went wrong. Please try again later.";
+                        }
+
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    }
+                }
+            }
+
+            // Close connection
+            mysqli_close($conn);
+        }
+
+        $tags = $tags_str;
+        $category = $category_str;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -60,12 +192,12 @@
                                     <div class="widget-content widget-content-area blog-create-section p-4 pb-0">
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" value="Perdagangan Orang Bermodus Prostitusi Daring Kembali Mencuat di Manado" maxlength="128" required="" autofocus="">
+                                                <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" value="<?php echo $title; ?>" maxlength="128" required="" autofocus="">
                                             </div>
                                         </div>
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <textarea id="summernote" name="content" style="display: none;">This is summernote edit example</textarea>
+                                                <textarea id="summernote" name="content" style="display: none;"><?php echo $content; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -78,27 +210,19 @@
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="tags">Tags</label>
-                                                <!-- <tags class="tagify blog-tags tagify--noTags tagify--empty" tabindex="-1">
-                                                    <span contenteditable="" tabindex="0" data-placeholder="​" aria-placeholder="" class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
-                                                    ​
-                                                </tags> -->
-                                                <input id="tags" name="tags" class="blog-tags" value="">
+                                                <input id="tags" name="tags" class="blog-tags" value="<?php echo $tags; ?>">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="category">Category</label>
-                                                <tags class="tagify" tabindex="-1">
-                                                    <tag title="Terbaru" contenteditable="false" spellcheck="false" tabindex="-1" class="tagify__tag tagify--noAnim" value="Terbaru"><x title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></x><div><span class="tagify__tag-text">Terbaru</span></div></tag><span tabindex="0" data-placeholder="Choose..." aria-placeholder="Choose..." class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
-                                                    ​
-                                                </tags>
-                                                <input id="category" name="category" placeholder="Choose..." value="Terbaru">
+                                                <input id="category" name="category" placeholder="Choose..." value="<?php echo $category; ?>">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="telegram">Telegram (chat_id)</label>
-                                                <input type="number" id="telegram" name="telegram" class="form-control" value="5512935649">
+                                                <input type="number" id="telegram" name="telegram" class="form-control" value="<?php echo $_SESSION['tg_chat_id']; ?>">
                                             </div>
                                             <div class="col-xxl-12 col-md-12">
                                                 <label for="delay">Delay (ms)</label>
-                                                <input type="number" id="delay" name="delay" class="form-control" min="1000" value="1000">
+                                                <input type="number" id="delay" name="delay" class="form-control" min="1000" value="<?php echo $_SESSION['delay']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +232,7 @@
                     </div>
                 </div>
 
-                <?php include('../footer.html'); ?>
+                <?php include('../../footer.html'); ?>
             </div>
         </div>
         <script src="<?php echo BASE_URL; ?>/public/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -127,10 +251,22 @@
                     y: 'top',
                 }
             });
-            
-            // $(document).ready(function() {
-            //     $('#summernote').summernote();
-            // });
+
+            <?php 
+                if ($title_err != "")
+                    echo "notyf.error('$title_err');";
+                if ($content_err != "")
+                    echo "notyf.error('$content_err');";
+                if ($tags_err != "")
+                    echo "notyf.error('$tags_err');";
+                if ($category_err != "")
+                    echo "notyf.error('$category_err');";
+                if ($error_msg != "")
+                    echo "notyf.error('$error_msg');";
+                
+                if ($msg != "")
+                    echo "notyf.open({type: 'success', message: '$msg'});";
+            ?>
         </script>
         <div class="notyf"></div>
         <div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;"></div>

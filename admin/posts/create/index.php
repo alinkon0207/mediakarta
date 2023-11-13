@@ -2,35 +2,6 @@
 <?php
     include('../../bootstrap.php');
 
-    function title_to_permalink($title) {
-        $permalink = str_replace([' ', ',', '.', '!', '@', '#', '$', '%', '^', '&'], '-', $title);
-
-        return $permalink;
-    }
-
-    function tags_to_string($tags) {
-        $result = "";
-
-        $tags_cont = substr($tags, 1, strlen($tags) - 2);
-        $arr1 = explode(',', $tags_cont);
-        $arr1_len = count($arr1);
-
-        for ($i = 0; $i < $arr1_len; $i++) {
-            $item = $arr1[$i];
-            $item_cont = substr($item, 1, strlen($item) - 2);
-
-            $arr2 = explode(':', $item_cont);
-            $value = $arr2[1];
-            
-            $result .= substr($value, 1, strlen($value) - 2);
-            if ($i < $arr1_len - 1) {
-                $result .= ", ";
-            }
-        }
-
-        return $result;
-    }
-
     ob_start();
     
     // Define variables and initialize with empty values
@@ -219,11 +190,11 @@
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="telegram">Telegram (chat_id)</label>
-                                                <input type="number" id="telegram" name="telegram" value="<?php echo $_SESSION['tg_chat_id']; ?>" class="form-control" disabled>
+                                                <input type="number" id="telegram" name="telegram" value="<?php echo $_SESSION['tg_chat_id']; ?>" class="form-control">
                                             </div>
                                             <div class="col-xxl-12 col-md-12">
                                                 <label for="delay">Delay (ms)</label>
-                                                <input type="number" id="delay" name="delay" value="<?php echo $_SESSION['delay']; ?>" class="form-control" min="1000" disabled>
+                                                <input type="number" id="delay" name="delay" value="<?php echo $_SESSION['delay']; ?>" class="form-control" min="1000">
                                             </div>
                                         </div>
                                     </div>
