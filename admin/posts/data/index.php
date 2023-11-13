@@ -12,6 +12,8 @@
     $user_id = $_SESSION['user_id'];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $_SESSION['draw']++;
+
         if ($_SESSION['role'] == 'admin') {
             $sql = "SELECT id, title, permalink, category, date, contents, tags FROM posts";
         } else {
@@ -61,7 +63,7 @@
                 // Send the response
                 echo json_encode(
                     array(
-                        "draw" => 1, 
+                        "draw" => $_SESSION['draw'], 
                         "recordsTotal" => $records, 
                         "recordsFiltered" => $records, 
                         "data" => $data

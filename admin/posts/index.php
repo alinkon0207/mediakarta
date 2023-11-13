@@ -1,6 +1,8 @@
 
 <?php
     include('../bootstrap.php');
+
+    $_SESSION['draw'] = 0;
 ?>
 
 <!DOCTYPE html>
@@ -61,12 +63,12 @@
                                         <table id="zero-config" class="table dt-table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr role="row">
-                                                    <td>ID</td>
-                                                    <td>Title</td>
-                                                    <td>Content</td>
-                                                    <td>Category</td>
-                                                    <td width="150">Date</td>
-                                                    <td width="70">Option</td>
+                                                    <th>ID</th>
+                                                    <th>Title</th>
+                                                    <th>Content</th>
+                                                    <th>Category</th>
+                                                    <th width="150">Date</th>
+                                                    <th width="70">Option</th>
                                                 </tr>
                                             </thead>
                                         </table>
