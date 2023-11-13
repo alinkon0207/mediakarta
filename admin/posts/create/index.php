@@ -1,6 +1,131 @@
 
 <?php
     include('../../bootstrap.php');
+
+    function title_to_permalink($title) {
+        $permalink = str_replace([' ', ',', '.', '!', '@', '#', '$', '%', '^', '&'], '-', $title);
+
+        return $permalink;
+    }
+
+    function tags_to_string($tags) {
+        $result = "";
+
+        $tags_cont = substr($tags, 1, strlen($tags) - 2);
+        $arr1 = explode(',', $tags_cont);
+        $arr1_len = count($arr1);
+
+        for ($i = 0; $i < $arr1_len; $i++) {
+            $item = $arr1[$i];
+            $item_cont = substr($item, 1, strlen($item) - 2);
+
+            $arr2 = explode(':', $item_cont);
+            $value = $arr2[1];
+            
+            $result .= substr($value, 1, strlen($value) - 2);
+            if ($i < $arr1_len - 1) {
+                $result .= ", ";
+            }
+        }
+
+        return $result;
+    }
+
+    ob_start();
+    
+    // Define variables and initialize with empty values
+    $user_id = $_SESSION['user_id'];
+    $title = $title_err = "";
+    $content = $content_err = "";
+    $tags = $tags_err = "";
+    $category = $category_err = "";
+    $msg = $error_msg = "";
+
+    // Processing form data when form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Check if title is empty
+        if (empty(trim($_POST['title']))) {
+            $title_err = 'Please enter title.';
+        } else {
+            $title = trim($_POST['title']);
+        }
+
+        // Check if content is empty
+        if (empty(trim($_POST['content']))) {
+            $content_err = 'Please enter content.';
+        } else {
+            $content = trim($_POST['content']);
+        }
+
+        // Check if tags is empty
+        if (empty(trim($_POST['tags']))) {
+            $tags_err = 'Please enter tags.';
+        } else {
+            $tags = trim($_POST['tags']);
+            $tags_str = tags_to_string($tags);
+        }
+
+        // Check if category is empty
+        if (empty(trim($_POST['category']))) {
+            $category_err = 'Please enter category.';
+        } else {
+            $category = trim($_POST['category']);
+            $category_str = tags_to_string($category);
+        }
+
+        // Validate credentials
+        if (empty($title_err) && empty($content_err) && empty($tags_err) && empty($category_err)) {
+            /*DATABASE CONNECTION */
+            global $conn;
+
+            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            if (!$conn) {
+                die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+            }
+
+            $permalink = title_to_permalink($title);
+            $permalink = strtolower($permalink);
+
+            $sql = "SELECT id FROM posts WHERE permalink = '$permalink'";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                // Execute the statement
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) > 0) {
+                    $error_msg = "Duplicate post, please choose another post title";
+                } else {
+                    mysqli_stmt_close($stmt);
+
+                    // Prepare a INSERT statement
+                    $sql = "INSERT INTO posts (author, title, permalink, category, contents, tags) 
+                            VALUES($user_id, '$title', '$permalink', '$category_str', '$content', '$tags_str')";
+                    if ($stmt = mysqli_prepare($conn, $sql)) {
+                        // Attempt to execute the prepared statement
+                        if (mysqli_stmt_execute($stmt)) {
+                            // Store result
+                            mysqli_stmt_store_result($stmt);
+
+                            $msg = "Post created successfully.";
+                        } else {
+                            echo "Oops! Something went wrong. Please try again later.";
+                        }
+
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    }
+                }
+            }
+
+            // Close connection
+            mysqli_close($conn);
+        }
+
+        $title = "";
+        $content = "";
+        $tags = "";
+        $category = "";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -21,15 +146,15 @@
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/tagify/tagify.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/src/summernote/summernote-lite.min.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/plugins/css/light/tagify/custom-tagify.css" type="text/css">
-        <!--<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/apps/blog-create.css" type="text/css">-->
+        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/apps/blog-create.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/components/tabs.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/components/list-group.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/users/account-setting.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/pages/knowledge_base.css" type="text/css">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/assets/css/light/dashboard/dash_1.css" type="text/css">
         <script src="<?php echo BASE_URL; ?>/public/loader.js"></script>
-        <script src="<?php echo BASE_URL; ?>/public/plugins/src/global/vendors.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?php echo BASE_URL; ?>/public/plugins/src/global/vendors.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/plugins/src/table/datatable/datatables.js"></script>
     </head>
     
@@ -61,12 +186,12 @@
                                     <div class="widget-content widget-content-area blog-create-section p-4 pb-0">
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" maxlength="128" required="" autofocus="">
+                                                <input type="text" class="form-control" id="post-title" name="title" placeholder="Post Title" maxlength="128" required="" autofocus="" value="<?php echo $title; ?>">
                                             </div>
                                         </div>
                                         <div class="row mb-4">
                                             <div class="col-sm-12">
-                                                <textarea id="summernote" name="content" style="display: none;"></textarea>
+                                                <textarea id="summernote" name="content" style="display: none;"><?php echo $content; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -86,27 +211,19 @@
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="tags">Tags</label>
-                                                <tags class="tagify blog-tags tagify--noTags tagify--empty" tabindex="-1">
-                                                    <span contenteditable="" tabindex="0" data-placeholder="​" aria-placeholder="" class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
-                                                    &ZeroWidthSpace;
-                                                </tags>
-                                                <input id="tags" name="tags" class="blog-tags" value="">
+                                                <input id="tag-tags" name="tags" class="blog-tags">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="category">Category</label>
-                                                <tags class="tagify tagify--noTags tagify--empty" tabindex="-1">
-                                                    <span tabindex="0" data-placeholder="Choose..." aria-placeholder="Choose..." class="tagify__input" role="textbox" aria-autocomplete="both" aria-multiline="false"></span>
-                                                    &ZeroWidthSpace;
-                                                </tags>
-                                                <input id="category" name="category" placeholder="Choose...">
+                                                <input id="tag-category" name="category" placeholder="Choose...">
                                             </div>
                                             <div class="col-xxl-12 col-md-12 mb-4">
                                                 <label for="telegram">Telegram (chat_id)</label>
-                                                <input type="number" id="telegram" name="telegram" value="<?php echo $_SESSION['tg_chat_id']; ?>" class="form-control">
+                                                <input type="number" id="telegram" name="telegram" value="<?php echo $_SESSION['tg_chat_id']; ?>" class="form-control" disabled>
                                             </div>
                                             <div class="col-xxl-12 col-md-12">
                                                 <label for="delay">Delay (ms)</label>
-                                                <input type="number" id="delay" name="delay" value="<?php echo $_SESSION['delay']; ?>" class="form-control" min="1000">
+                                                <input type="number" id="delay" name="delay" value="<?php echo $_SESSION['delay']; ?>" class="form-control" min="1000" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +233,7 @@
                     </div>
                 </div>
                 
-                <?php include('../footer.html'); ?>
+                <?php include('../../footer.html'); ?>
             </div>
         </div>
         <script src="<?php echo BASE_URL; ?>/public/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -135,10 +252,22 @@
                     y: 'top',
                 }
             });
-            
-            // $(document).ready(function() {
-            //     $('#summernote').summernote();
-            // });
+
+            <?php 
+                if ($title_err != "")
+                    echo "notyf.error('$title_err');";
+                if ($content_err != "")
+                    echo "notyf.error('$content_err');";
+                if ($tags_err != "")
+                    echo "notyf.error('$tags_err');";
+                if ($category_err != "")
+                    echo "notyf.error('$category_err');";
+                if ($error_msg != "")
+                    echo "notyf.error('$error_msg');";
+                
+                if ($msg != "")
+                    echo "notyf.open({type: 'success', message: '$msg'});";
+            ?>
         </script>
         <div class="notyf"></div>
         <div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;"></div>
