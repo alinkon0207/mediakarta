@@ -357,18 +357,6 @@
 
         <?php include('./footer.html'); ?>
 
-        <script>
-			$(document).ready(function(){
-				$('.slick-track').slick({
-					vertical: true, 
-					verticalSwiping: true, 
-					slidesToShow: 1, 
-					slidesToScroll: 1, 
-					autoplay: true, 
-				});
-			});
-		</script>
-
         <script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>
 
