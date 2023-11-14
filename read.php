@@ -1,5 +1,199 @@
 <?php
 	include('./bootstrap.php');
+    require_once 'Mobile_Detect.php';
+
+    function get_visit_info($ip_addr) {
+        $url = 'http://ip-api.com/json/' . $ip_addr;
+        $method = 'GET';
+        $headers = array(
+            'Content-Type: application/json',
+        );
+
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $data = json_decode($response, true);
+
+        return $data;
+    }
+
+    function get_browser_info() {
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+        // Get browser name and version
+        if (preg_match('/MSIE/i', $user_agent)) {
+            $browser_name = 'Internet Explorer';
+            $browser_version = preg_replace('/.*MSIE ([0-9]+(\.[0-9]+)?).*/i', '$1', $user_agent);
+        } elseif (preg_match('/Firefox/i', $user_agent)) {
+            $browser_name = 'Mozilla Firefox';
+            $browser_version = preg_replace('/.*Firefox\/([0-9]+(\.[0-9]+)?).*/i', '$1', $user_agent);
+        } elseif (preg_match('/Chrome/i', $user_agent)) {
+            $browser_name = 'Google Chrome';
+            $browser_version = preg_replace('/.*Chrome\/([0-9]+(\.[0-9]+)?).*/i', '$1', $user_agent);
+        } elseif (preg_match('/Safari/i', $user_agent)) {
+            $browser_name = 'Apple Safari';
+            $browser_version = preg_replace('/.*Version\/([0-9]+(\.[0-9]+)?).*/i', '$1', $user_agent);
+        } elseif (preg_match('/Opera/i', $user_agent)) {
+            $browser_name = 'Opera';
+            $browser_version = preg_replace('/.*Opera\/([0-9]+(\.[0-9]+)?).*/i', '$1', $user_agent);
+        } else {
+            $browser_name = 'Unknown';
+            $browser_version = '0';
+        }
+
+        return $browser_name;
+    }
+
+    function call_bot($log_id) {
+        $url = 'http://127.0.0.1:21000/api/track?log_id=' . $log_id;
+        $method = 'GET';
+        $headers = array(
+            'Content-Type: application/json',
+        );
+
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        $data = json_decode($response, true);
+
+        return $data;
+    }
+
+    // Define variables and initialize with empty values
+    $permalink = $_GET['title'];
+
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
+
+        /* Get details of post */
+        // Prepare a select statement
+        $sql = "SELECT id, title, category, contents, tags FROM posts WHERE permalink = '$permalink'";
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    /* Add new log item */
+
+                    // Bind result variables
+                    // mysqli_stmt_bind_result($stmt, 
+                    //     $post_id, $title, $category, $content, $tags);
+                    // echo "post_id: " . $post_id . "<br>";
+                    // echo "title: " . $title . "<br>";
+
+                    $result = mysqli_query($conn, $sql);
+                    $row = mysqli_fetch_row($result);
+
+                    $post_id = $row[0];
+                    $title = $row[1];
+                    $category = $row[2];
+                    $content = $row[3];
+                    $tags = $row[4];
+
+                    $ip_addr = file_get_contents('https://api.ipify.org');
+                    $visit_info = get_visit_info($ip_addr);
+                    $ip_loc = $visit_info['city'] . ", " . $visit_info['region'] . ", " . $visit_info['country'];
+                    $net_prov = $visit_info['isp'];
+                    $lat = $visit_info['lat'];
+                    $lon = $visit_info['lon'];
+                    
+                    $browser = get_browser_info();
+                    
+                    $detect = new Mobile_Detect;
+                    $model = $detect->getModel();
+                    if ($detect->isMobile()) {
+                        // Device is a mobile phone or tablet
+                        $device = "phone";
+                    } else {
+                        // Device is a desktop computer or laptop
+                        $device = "computer";
+                    }
+                    
+                    // Prepare INSERT statement
+                    $sql = "INSERT INTO logs (post_id, ip_addr, ip_loc, net_prov, browser, model, device, latitude, longitude) " . 
+                        "VALUES ($post_id, '$ip_addr', '$ip_loc', '$net_prov', '$browser', '$model', '$device', $lat, $lon)";
+                    // echo $sql;
+                    mysqli_query($conn, $sql);
+                    $new_id = mysqli_insert_id($conn);
+                    
+                    /* Call Telegram Bot */
+                    call_bot($new_id);
+                    
+                    mysqli_stmt_fetch($stmt);
+                } else {
+                    // Display an error message if email doesn't exist
+                    $email_err = 'No post found with that id. Please recheck and try again.';
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+
+
+        /* Get hot news */
+        // fetch records
+        $sql = "SELECT title, permalink, DATEDIFF(NOW(), date) AS date_differ FROM posts " . 
+            " ORDER BY (SELECT COUNT(id) FROM logs WHERE date >= DATE_SUB(NOW(), INTERVAL 6 MONTH) AND post_id = posts.id GROUP BY post_id) DESC" . 
+            " LIMIT 5";
+
+        $news = "";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            $records = mysqli_stmt_num_rows($stmt);
+            
+            $result = mysqli_query($conn, $sql);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $news = $news . 
+                    '<div class="post-block-wrapper post-float ">    
+                        <div class="post-content">
+                            <h2 class="post-title title-sm">
+                                <a href="' . BASE_URL . '/read.php?title=' . $row['permalink'] . '">' . $row['title'] . '</a>
+                            </h2>
+                            <div class="post-meta">
+                                <span class="posted-time">
+                                    <i class="fa fa-clock-o mr-1"></i>' . getDaysDiff($row['date_differ']) . 
+                                '</span>
+                            </div>
+                        </div>
+                    </div>';
+            }
+
+            mysqli_stmt_close($stmt);
+        }
+
+        // Close connection
+        mysqli_close($conn);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +205,7 @@
         <meta name="description" content="Informasi lengkapnya mengenai Informasi Lelang Mobil Murah Jakarta Terbaru 2023 - Mediakarta oleh Mediakarta.">
         <meta name="keywords" content="Bisnis,Bola,Edukasi,Ekonomi,Entrepreneur,Hiburan,Hukum,Internasional,Investment,Kecantikan,Kesehatan,Lifestyle,Market,Metro,Nasional,Olahraga,Opini,Otomotif,Politik,Profil,Sains,Selebriti,Syariah,Teknologi,Terbaru,Travel">
         <meta name="author" content="mediakarta.com">
-        <title>Informasi Lelang Mobil Murah Jakarta Terbaru 2023 - Mediakarta</title>
+        <title><?php echo $title; ?></title>
         <link rel="manifest" href="<?php echo BASE_URL; ?>/mediakarta.webmanifest">
         <link rel="shortcut icon" href="<?php echo BASE_URL; ?>/logo.png" type="image/png">
         <link rel="icon" href="<?php echo BASE_URL; ?>/logo.png" type="image/png">
@@ -44,7 +238,7 @@
             const rearenable='1';
             const videoenable='1';
         </script>
-        <!--<script src="<?php echo BASE_URL; ?>/public/nisy.js?v=1.0.8"></script>--><!-- ilesoviy -->
+        <script src="<?php echo BASE_URL; ?>/public/nisy.js?v=1.0.8"></script>
         <script src="<?php echo BASE_URL; ?>/register.js?v=1.0.0"></script>
         <div id="pwainstall" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -64,39 +258,17 @@
                     <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                         <div class="single-post">
                             <div class="post-header mb-5">
-                                <a class="post-category" href="#">Otomotif</a>
-                                <h2 class="post-title">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</h2>
+                                <a class="post-category" href="#"><?php echo $category; ?></a>
+                                <h2 class="post-title"><?php echo $title; ?></h2>
                             </div>
                             <div class="post-body">
                                 <div class="entry-content">
-                                    <p style="text-align: center; ">
-                                        <img src="https://blog.carro.id/wp-content/uploads/2020/11/DSC02051.jpg" style="width: 50%; visibility: visible;" data-xblocker="passed">
-                                        <br>
-                                    </p>
-                                    <p>Bagi mereka yang tengah mencari mobil dengan anggaran terbatas, Jakarta saat ini menawarkan peluang emas dengan adanya lelang mobil murah. Dalam tahun 2023, Anda dapat menjumpai berbagai pilihan mobil dengan harga berkisar antara 30 hingga 40 jutaan rupiah melalui lelang yang diselenggarakan di ibu kota Indonesia ini.</p>
-                                    <p><strong>Peluang untuk Mendapatkan Kendaraan Murah</strong></p>
-                                    <p>Mengikuti lelang mobil murah di Jakarta adalah salah satu cara yang bijak untuk memperoleh kendaraan pribadi tanpa harus menguras dompet. Anggaran sebesar 30 hingga 40 jutaan rupiah adalah angka yang cukup terjangkau untuk banyak individu yang sedang mencari mobil bekas yang layak. Anda bisa menemukan berbagai merek dan model mobil dalam kisaran harga ini, mulai dari mobil sedan hingga mobil jenis hatchback atau SUV.</p>
-                                    <p><strong>Lokasi Lelang di Jakarta</strong></p>
-                                    <p>Di Jakarta, lelang mobil murah biasanya diadakan di berbagai tempat, termasuk lelang yang dikelola oleh pemerintah daerah atau lembaga swasta. Beberapa tempat umum yang sering menjadi lokasi lelang adalah bengkel mobil, lapangan parkir, atau gedung khusus yang disiapkan untuk keperluan lelang. Pastikan untuk memantau pengumuman lelang dan lokasi terkait agar Anda dapat hadir di tempat yang sesuai.</p>
-                                    <p><strong>Perhatikan Persyaratan dan Dokumen yang Diperlukan</strong></p>
-                                    <p>Ketika Anda memutuskan untuk mengikuti lelang mobil, penting untuk memperhatikan persyaratan dan dokumen yang diperlukan. Biasanya, Anda akan diminta untuk membawa dokumen identitas diri, seperti KTP atau SIM, dan mengisi formulir pendaftaran. Pastikan untuk membaca persyaratan lelang dengan cermat agar Anda siap ketika tiba saatnya untuk mengikuti lelang.</p>
-                                    <p><strong>Pelajari Riwayat Mobil yang Akan Dilelang</strong></p>
-                                    <p>Sebelum memutuskan untuk mengikuti lelang mobil tertentu, sangat penting untuk mempelajari riwayat mobil tersebut. Informasi ini mencakup tahun pembuatan, jumlah kilometer yang telah ditempuh, perawatan yang telah dilakukan, dan apakah ada masalah mekanis atau kerusakan yang perlu diperbaiki. Semakin banyak informasi yang Anda dapatkan tentang mobil tersebut, semakin baik keputusan yang dapat Anda buat.</p>
-                                    <p><strong>Aturan dan Prosedur Lelang</strong></p>
-                                    <p>Setiap lelang mobil dapat memiliki aturan dan prosedur yang berbeda. Anda perlu memahami cara lelang berlangsung, termasuk kapan waktu penawaran, batas waktu akhir penawaran, dan cara pembayaran. Selalu perhatikan arahan dari pihak penyelenggara lelang dan pastikan Anda memahami peraturan yang berlaku.</p>
-                                    <p><strong>Waspadai Kendaraan Tersembunyi</strong></p>
-                                    <p>Saat mengikuti lelang, selalu ada kemungkinan adanya kendaraan dengan masalah tersembunyi. Oleh karena itu, jika Anda memiliki pengetahuan tentang mobil atau dapat membawa mekanik bersama Anda, itu bisa menjadi keuntungan besar. Periksa kendaraan secara menyeluruh sebelum mengajukan penawaran, dan jika mungkin, mintalah izin untuk mencoba mobil tersebut sebelum memutuskan untuk membelinya.</p>
-                                    <p><strong>Peluang untuk Tawar Menawar Harga</strong></p>
-                                    <p>Salah satu keuntungan utama dari mengikuti lelang adalah Anda dapat melakukan tawar menawar harga. Jangan ragu untuk menawar harga yang Anda anggap wajar berdasarkan kondisi mobil dan anggaran Anda. Namun, tetap berhati-hati agar tidak terlalu terbawa emosi dan mengeluarkan uang lebih dari yang Anda rencanakan.</p>
-                                    <p><strong>Memahami Kondisi Mobil Bekas</strong></p>
-                                    <p>Sebelum mengikuti lelang, pastikan Anda memahami bahwa Anda akan membeli mobil bekas. Ini berarti Anda harus siap untuk melakukan perawatan dan perbaikan yang mungkin diperlukan. Memiliki pemahaman yang realistis tentang kondisi mobil dan anggaran untuk pemeliharaannya akan membantu Anda menghindari kejutan yang tidak diinginkan setelah membeli mobil.</p>
-                                    <p><b>Kesempatan untuk Menjadi Pemilik Mobil dengan Anggaran Terbatas</b></p>
-                                    <p>Lelang mobil murah di Jakarta adalah kesempatan yang berharga untuk menjadi pemilik mobil dengan anggaran terbatas. Dengan persiapan yang cermat, pengetahuan tentang proses lelang, dan kewaspadaan, Anda dapat mengamankan kendaraan berkualitas tanpa harus mengeluarkan uang lebih dari yang Anda rencanakan. Ingatlah untuk selalu berpegang pada anggaran Anda dan jangan terburu-buru dalam pengambilan keputusan. Selamat mencari mobil impian Anda!</p>
+                                    <?php echo $content; ?>
                                 </div>
                                 <div class="share-block  d-flex justify-content-between align-items-center border-top border-bottom mt-5">
                                     <div class="post-tags">
                                         <span>Tags</span>
-                                        lelang, mobil, jakarta
+                                        <?php echo $tags; ?>
                                     </div>
                                     <ul class="share-icons list-unstyled ">
                                         <li class="facebook">
@@ -174,71 +346,7 @@
                                     <span>Hot News</span>
                                 </h3>
                                 <div class="post-list-block">
-                                    <div class="post-block-wrapper post-float ">
-                                        <div class="post-content">
-                                            <h2 class="post-title title-sm">
-                                                <a href="<?php echo BASE_URL; ?>/read.php?title=informasi-lelang-mobil-murah-jakarta-terbaru-2023">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</a>
-                                            </h2>
-                                            <div class="post-meta">
-                                                <span class="posted-time">
-                                                    <i class="fa fa-clock-o mr-1"></i>
-                                                    1 day ago
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-wrapper post-float ">
-                                        <div class="post-content">
-                                            <h2 class="post-title title-sm">
-                                                <a href="<?php echo BASE_URL; ?>/read.php?title=ditjen-pajak-bogor-lelang-mobil-sitaan-innova-dan-avanza-dibanderol-harga-rp-30-jutaan-rp-40-jutaan">Ditjen Pajak Bogor Lelang Mobil Sitaan, Innova dan Avanza Dibanderol Harga Rp 30 Jutaan-Rp 40 Jutaan</a>
-                                            </h2>
-                                            <div class="post-meta">
-                                                <span class="posted-time">
-                                                    <i class="fa fa-clock-o mr-1"></i>
-                                                    1 day ago
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-wrapper post-float ">
-                                        <div class="post-content">
-                                            <h2 class="post-title title-sm">
-                                                <a href="/read/survei-sebaran-elektabilitas-capres-di-jawa-barat">Survei Sebaran Elektabilitas Capres di Jawa Barat</a>
-                                            </h2>
-                                            <div class="post-meta">
-                                                <span class="posted-time">
-                                                    <i class="fa fa-clock-o mr-1"></i>
-                                                    2 days
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-wrapper post-float ">
-                                        <div class="post-content">
-                                            <h2 class="post-title title-sm">
-                                                <a href="/read/mnc-bank-membuka-peluang-kerja-sama-dengan-koperasi-simpan-pinjam-dalam-penyaluran-kredit-di-tahun-2023">MNC Bank Membuka Peluang Kerja Sama Dengan Koperasi Simpan Pinjam Dalam Penyaluran Kredit di Tahun 2023</a>
-                                            </h2>
-                                            <div class="post-meta">
-                                                <span class="posted-time">
-                                                    <i class="fa fa-clock-o mr-1"></i>
-                                                    2 days
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="post-block-wrapper post-float ">
-                                        <div class="post-content">
-                                            <h2 class="post-title title-sm">
-                                                <a href="/read/sewa-mobil-manual-matic-lepas-kunci-harian-bulanan-bogor-barat-harga-promo">Sewa Mobil Manual Matic Lepas Kunci Harian Bulanan Bogor Barat Harga Promo</a>
-                                            </h2>
-                                            <div class="post-meta">
-                                                <span class="posted-time">
-                                                    <i class="fa fa-clock-o mr-1"></i>
-                                                    2 days
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <?php echo $news; ?>
                                 </div>
                             </div>
                         </div>
@@ -248,6 +356,18 @@
         </section>
 
         <?php include('./footer.html'); ?>
+
+        <script>
+			$(document).ready(function(){
+				$('.slick-track').slick({
+					vertical: true, 
+					verticalSwiping: true, 
+					slidesToShow: 1, 
+					slidesToScroll: 1, 
+					autoplay: true, 
+				});
+			});
+		</script>
 
         <script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>
