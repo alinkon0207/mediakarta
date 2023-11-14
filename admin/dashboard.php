@@ -70,12 +70,12 @@
         } else {
             echo "Oops! Something went wrong. Please try again later. (1)";
         }
+
+        // Close connection
+        mysqli_close($conn);
     } else {
         echo "Invalid username or password!";
     }
-
-    // Close connection
-    mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>

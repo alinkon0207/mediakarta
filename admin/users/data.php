@@ -1,16 +1,16 @@
 <?php
     include('../bootstrap.php');
 
-    /*DATABASE CONNECTION */
-    global $conn;
-
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if (!$conn) {
-        die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
-    }
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['draw']++;
+
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
 
         $sql = "SELECT id, email, fullname, tg_chat_id, delay FROM users WHERE role='author'";
     
@@ -59,8 +59,8 @@
                 mysqli_stmt_close($stmt);
             // }
         }
-    }
 
-    // Close connection
-    mysqli_close($conn);
+        // Close connection
+        mysqli_close($conn);
+    }
 ?>

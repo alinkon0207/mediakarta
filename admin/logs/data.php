@@ -1,18 +1,18 @@
 <?php
     include('../bootstrap.php');
 
-    /*DATABASE CONNECTION */
-    global $conn;
-
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    if (!$conn) {
-        die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
-    }
-
-    $user_id = $_SESSION['user_id'];
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['draw']++;
+
+        $user_id = $_SESSION['user_id'];
+
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
 
         if ($_SESSION['role'] == 'admin') {
             $sql = "SELECT logs.id as id, logs.ip_addr as ip_addr, logs.ip_loc as ip_loc, posts.permalink as permalink, logs.date as date FROM posts, logs WHERE posts.id = logs.post_id";
