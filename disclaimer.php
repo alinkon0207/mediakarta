@@ -1,5 +1,5 @@
 <?php
-	include('../bootstrap.php');
+	include('./bootstrap.php');
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 	</head>
 	
 	<body style="" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
-		<?php include('../header.html'); ?>
+		<?php include('./header.html'); ?>
 		
 		<section class="section-padding">
             <div class="container">
@@ -35,13 +35,14 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="all-news-block">
                             <h2 class="text-center">
-                                <b>About Us</b>
+                                <b>Disclaimer</b>
                             </h2>
                             <hr>
                             <div class="all-news">
-                                <p>Website berita adalah platform daring yang menyediakan informasi terkini dan berita terbaru dalam berbagai topik seperti politik, ekonomi, hiburan, olahraga, dan banyak lagi. Melalui website berita, pengguna dapat mengakses artikel-artikel berita terbaru, laporan mendalam, editorial, opini, dan bahkan video yang mengabarkan peristiwa terkini di seluruh dunia. Website berita juga sering menyediakan fitur komentar yang memungkinkan pengguna untuk berinteraksi dan berbagi pendapat mereka terkait berita yang disajikan.</p>
-                                <p>Salah satu contoh website berita terkemuka adalah MediaKarta. MediaKarta adalah sebuah platform berita yang menawarkan liputan terpercaya dan komprehensif dalam berbagai bidang. Dengan tim jurnalis yang berpengalaman, MediaKarta menyajikan berita terbaru, analisis mendalam, dan wawancara eksklusif dengan tokoh-tokoh terkemuka di berbagai sektor. Website MediaKarta juga memberikan ruang bagi para pembaca untuk mengungkapkan pendapat mereka melalui fitur komentar yang interaktif, sehingga tercipta diskusi yang dinamis di antara komunitas pembaca.</p>
-                                <p>Selain itu, MediaKarta juga menawarkan beragam rubrik dan kategori berita, mulai dari politik, ekonomi, teknologi, hiburan, kesehatan, hingga gaya hidup. Dengan tampilan yang user-friendly dan navigasi yang mudah, pengguna dapat dengan cepat menemukan topik berita yang menarik minat mereka. MediaKarta berkomitmen untuk memberikan informasi terkini dan terpercaya kepada pembacanya, serta menjaga standar keberimbangan dan objektivitas dalam menyajikan berita.</p>
+                                <p>Informasi yang terdapat dalam website ini adalah untuk tujuan umum saja. Informasi ini disediakan oleh Mediakarta.com dan kami senantiasa berusaha untuk menjaga informasi yang aktual dan benar.</p>
+                                <p>Kami tidak membuat pernyataan atau jaminan apapun, tersurat maupun tersirat, tentang akurasi kelengkapan, kesesuaian, atau ketersediaan ke situs web atau informasi, produk, jasa, atau gambar terkait yang terdapat pada website ini untuk tujuan apapun.</p>
+                                <p>Setiap ketergantungan yang anda tempatkan pada informasi tersebut adalah risiko anda sendiri.</p>
+                                <p>Dalam hal apapun kami tidak bertanggung jawab atas kerugian atau kerusakan termasuk tanpa batasan, kerugian tidak langsung atau kerusakan apapun yang timbul dari hilangnya data atau keuntungan yang timbul dari penggunaan website ini.</p>
                             </div>
                         </div>
                     </div>
@@ -49,7 +50,7 @@
             </div>
         </section>
 	
-		<?php include('../footer.html'); ?>
+		<?php include('./footer.html'); ?>
 		
 		<script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
 		<script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>

@@ -11,5 +11,5 @@
     $_SESSION['tg_chat_id'] = '';
     $_SESSION['delay'] = '';
 
-    header("Location: " . BASE_URL . "/../auth");
+    header("Location: " . BASE_URL . "/../auth.php");
 ?>

@@ -1,6 +1,6 @@
 <!--- LOGIN SCRIPT----->
 <?php
-    include('../admin/bootstrap.php');
+    include('./admin/bootstrap.php');
 
     ob_start();
     

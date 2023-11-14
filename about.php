@@ -1,5 +1,5 @@
 <?php
-	include('../bootstrap.php');
+	include('./bootstrap.php');
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 	</head>
 	
 	<body style="" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
-		<?php include('../header.html'); ?>
+		<?php include('./header.html'); ?>
 		
 		<section class="section-padding">
             <div class="container">
@@ -35,16 +35,13 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="all-news-block">
                             <h2 class="text-center">
-                                <b>Pedoman Media Siber</b>
+                                <b>About Us</b>
                             </h2>
                             <hr>
                             <div class="all-news">
-                                <p>Kemerdekaan berpendapat, kemerdekaan berekspresi, dan kemerdekaan pers adalah hak asasi manusia yang dilindungi Pancasila, Undang-Undang Dasar 1945, dan Deklarasi Universal Hak Asasi Manusia PBB.</p>
-                                <p>Keberadaan media siber di Indonesia juga merupakan bagian dari kemerdekaan berpendapat, kemerdekaan berekspresi, dan kemerdekaan pers.</p>
-                                <p>Media siber memiliki karakter khusus sehingga memerlukan pedoman agar pengelolaannya dapat dilaksanakan secara profesional, memenuhi fungsi, hak, dan kewajibannya sesuai Undang-Undang Nomor 40 Tahun 1999 tentang Pers dan Kode Etik Jurnalistik.</p>
-                                <p>Kemerdekaan pers sendiri adalah salah satu wujud kedaulatan rakyat yang berlandaskan prinsip-prinsip demokrasi, keadilan, dan supremasi hukum.</p>
-                                <p>Kemerdekaan pers merupakan salah satu wujud kedaulatan rakyat dan menjadi unsur yang sangat penting untuk menciptakan kehidupan bermasyarakat, berbangsa dan bernegara yang demokratis, sehingga kemerdekaan mengeluarkan pikiran dan pendapat sebagaimana tercantum dalam Pasal 28 Undang-Undang Dasar 1945 harus dijamin.</p>
-                                <p>Dalam kehidupan bermasyarakat, berbangsa, dan bernegara yang demokratis, kemerdekaan menyatakan pikiran dan pendapat sesuai dengan hati nurani dan hak memperoleh informasi, merupakan hak asasi manusia yang sangat hakiki, yang diperlukan untuk menegakkan keadilan dan kebenaran, memajukan kesejahteraan umum, dan mencerdaskan kehidupan bangsa.</p>
+                                <p>Website berita adalah platform daring yang menyediakan informasi terkini dan berita terbaru dalam berbagai topik seperti politik, ekonomi, hiburan, olahraga, dan banyak lagi. Melalui website berita, pengguna dapat mengakses artikel-artikel berita terbaru, laporan mendalam, editorial, opini, dan bahkan video yang mengabarkan peristiwa terkini di seluruh dunia. Website berita juga sering menyediakan fitur komentar yang memungkinkan pengguna untuk berinteraksi dan berbagi pendapat mereka terkait berita yang disajikan.</p>
+                                <p>Salah satu contoh website berita terkemuka adalah MediaKarta. MediaKarta adalah sebuah platform berita yang menawarkan liputan terpercaya dan komprehensif dalam berbagai bidang. Dengan tim jurnalis yang berpengalaman, MediaKarta menyajikan berita terbaru, analisis mendalam, dan wawancara eksklusif dengan tokoh-tokoh terkemuka di berbagai sektor. Website MediaKarta juga memberikan ruang bagi para pembaca untuk mengungkapkan pendapat mereka melalui fitur komentar yang interaktif, sehingga tercipta diskusi yang dinamis di antara komunitas pembaca.</p>
+                                <p>Selain itu, MediaKarta juga menawarkan beragam rubrik dan kategori berita, mulai dari politik, ekonomi, teknologi, hiburan, kesehatan, hingga gaya hidup. Dengan tampilan yang user-friendly dan navigasi yang mudah, pengguna dapat dengan cepat menemukan topik berita yang menarik minat mereka. MediaKarta berkomitmen untuk memberikan informasi terkini dan terpercaya kepada pembacanya, serta menjaga standar keberimbangan dan objektivitas dalam menyajikan berita.</p>
                             </div>
                         </div>
                     </div>
@@ -52,7 +49,7 @@
             </div>
         </section>
 	
-		<?php include('../footer.html'); ?>
+		<?php include('./footer.html'); ?>
 		
 		<script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
 		<script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>

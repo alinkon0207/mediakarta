@@ -1,5 +1,5 @@
 <?php
-	include('../bootstrap.php');
+	include('./bootstrap.php');
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
         <script>var bodyWeb = document.getElementsByTagName('body');</script>
     </head>
     <body style="" class="" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
-        <?php include('../header.html'); ?>
+        <?php include('./header.html'); ?>
         
         <meta http-equiv="cache-control" content="no-cache">
         <meta http-equiv="expires" content="0">
@@ -177,7 +177,7 @@
                                     <div class="post-block-wrapper post-float ">
                                         <div class="post-content">
                                             <h2 class="post-title title-sm">
-                                                <a href="<?php echo BASE_URL; ?>/read/index.php?title=informasi-lelang-mobil-murah-jakarta-terbaru-2023">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</a>
+                                                <a href="<?php echo BASE_URL; ?>/read.php?title=informasi-lelang-mobil-murah-jakarta-terbaru-2023">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</a>
                                             </h2>
                                             <div class="post-meta">
                                                 <span class="posted-time">
@@ -190,7 +190,7 @@
                                     <div class="post-block-wrapper post-float ">
                                         <div class="post-content">
                                             <h2 class="post-title title-sm">
-                                                <a href="<?php echo BASE_URL; ?>/read/index.php?title=ditjen-pajak-bogor-lelang-mobil-sitaan-innova-dan-avanza-dibanderol-harga-rp-30-jutaan-rp-40-jutaan">Ditjen Pajak Bogor Lelang Mobil Sitaan, Innova dan Avanza Dibanderol Harga Rp 30 Jutaan-Rp 40 Jutaan</a>
+                                                <a href="<?php echo BASE_URL; ?>/read.php?title=ditjen-pajak-bogor-lelang-mobil-sitaan-innova-dan-avanza-dibanderol-harga-rp-30-jutaan-rp-40-jutaan">Ditjen Pajak Bogor Lelang Mobil Sitaan, Innova dan Avanza Dibanderol Harga Rp 30 Jutaan-Rp 40 Jutaan</a>
                                             </h2>
                                             <div class="post-meta">
                                                 <span class="posted-time">
@@ -247,7 +247,7 @@
             </div>
         </section>
 
-        <?php include('../footer.html'); ?>
+        <?php include('./footer.html'); ?>
 
         <script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>

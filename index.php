@@ -44,7 +44,7 @@
 											<div class="post-content">
 												<a class="post-category" href="#">Otomotif</a>
 												<h2 class="post-title mt-3">
-													<a href="<?php echo BASE_URL; ?>/read/index.php?title=informasi-lelang-mobil-murah-jakarta-terbaru-2023">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</a>
+													<a href="<?php echo BASE_URL; ?>/read.php?title=informasi-lelang-mobil-murah-jakarta-terbaru-2023">Informasi Lelang Mobil Murah Jakarta Terbaru 2023</a>
 												</h2>
 												<div class="post-meta">
 													<span class="posted-time">19 hours</span>
@@ -60,7 +60,7 @@
 											<div class="post-content">
 												<a class="post-category" href="#">Nasional</a>
 												<h2 class="post-title mt-3">
-													<a href="<?php echo BASE_URL; ?>/read/index.php?title=ditjen-pajak-bogor-lelang-mobil-sitaan-innova-dan-avanza-dibanderol-harga-rp-30-jutaan-rp-40-jutaan">Ditjen Pajak Bogor Lelang Mobil Sitaan, Innova dan Avanza Dibanderol Harga Rp 30 Jutaan-Rp 40 Jutaan</a>
+													<a href="<?php echo BASE_URL; ?>/read.php?title=ditjen-pajak-bogor-lelang-mobil-sitaan-innova-dan-avanza-dibanderol-harga-rp-30-jutaan-rp-40-jutaan">Ditjen Pajak Bogor Lelang Mobil Sitaan, Innova dan Avanza Dibanderol Harga Rp 30 Jutaan-Rp 40 Jutaan</a>
 												</h2>
 												<div class="post-meta">
 													<span class="posted-time">19 hours</span>

@@ -1,5 +1,5 @@
 <?php
-	include('../bootstrap.php');
+	include('./bootstrap.php');
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 	</head>
 	
 	<body style="" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
-		<?php include('../header.html'); ?>
+		<?php include('./header.html'); ?>
 		
 		<section class="section-padding">
             <div class="container">
@@ -72,7 +72,7 @@
             </div>
         </section>
 	
-		<?php include('../footer.html'); ?>
+		<?php include('./footer.html'); ?>
 		
 		<script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
 		<script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>

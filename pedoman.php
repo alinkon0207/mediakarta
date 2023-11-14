@@ -1,5 +1,5 @@
 <?php
-	include('../bootstrap.php');
+	include('./bootstrap.php');
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
 	</head>
 	
 	<body style="" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
-		<?php include('../header.html'); ?>
+		<?php include('./header.html'); ?>
 		
 		<section class="section-padding">
             <div class="container">
@@ -35,14 +35,16 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="all-news-block">
                             <h2 class="text-center">
-                                <b>Disclaimer</b>
+                                <b>Pedoman Media Siber</b>
                             </h2>
                             <hr>
                             <div class="all-news">
-                                <p>Informasi yang terdapat dalam website ini adalah untuk tujuan umum saja. Informasi ini disediakan oleh Mediakarta.com dan kami senantiasa berusaha untuk menjaga informasi yang aktual dan benar.</p>
-                                <p>Kami tidak membuat pernyataan atau jaminan apapun, tersurat maupun tersirat, tentang akurasi kelengkapan, kesesuaian, atau ketersediaan ke situs web atau informasi, produk, jasa, atau gambar terkait yang terdapat pada website ini untuk tujuan apapun.</p>
-                                <p>Setiap ketergantungan yang anda tempatkan pada informasi tersebut adalah risiko anda sendiri.</p>
-                                <p>Dalam hal apapun kami tidak bertanggung jawab atas kerugian atau kerusakan termasuk tanpa batasan, kerugian tidak langsung atau kerusakan apapun yang timbul dari hilangnya data atau keuntungan yang timbul dari penggunaan website ini.</p>
+                                <p>Kemerdekaan berpendapat, kemerdekaan berekspresi, dan kemerdekaan pers adalah hak asasi manusia yang dilindungi Pancasila, Undang-Undang Dasar 1945, dan Deklarasi Universal Hak Asasi Manusia PBB.</p>
+                                <p>Keberadaan media siber di Indonesia juga merupakan bagian dari kemerdekaan berpendapat, kemerdekaan berekspresi, dan kemerdekaan pers.</p>
+                                <p>Media siber memiliki karakter khusus sehingga memerlukan pedoman agar pengelolaannya dapat dilaksanakan secara profesional, memenuhi fungsi, hak, dan kewajibannya sesuai Undang-Undang Nomor 40 Tahun 1999 tentang Pers dan Kode Etik Jurnalistik.</p>
+                                <p>Kemerdekaan pers sendiri adalah salah satu wujud kedaulatan rakyat yang berlandaskan prinsip-prinsip demokrasi, keadilan, dan supremasi hukum.</p>
+                                <p>Kemerdekaan pers merupakan salah satu wujud kedaulatan rakyat dan menjadi unsur yang sangat penting untuk menciptakan kehidupan bermasyarakat, berbangsa dan bernegara yang demokratis, sehingga kemerdekaan mengeluarkan pikiran dan pendapat sebagaimana tercantum dalam Pasal 28 Undang-Undang Dasar 1945 harus dijamin.</p>
+                                <p>Dalam kehidupan bermasyarakat, berbangsa, dan bernegara yang demokratis, kemerdekaan menyatakan pikiran dan pendapat sesuai dengan hati nurani dan hak memperoleh informasi, merupakan hak asasi manusia yang sangat hakiki, yang diperlukan untuk menegakkan keadilan dan kebenaran, memajukan kesejahteraan umum, dan mencerdaskan kehidupan bangsa.</p>
                             </div>
                         </div>
                     </div>
@@ -50,7 +52,7 @@
             </div>
         </section>
 	
-		<?php include('../footer.html'); ?>
+		<?php include('./footer.html'); ?>
 		
 		<script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
 		<script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>
