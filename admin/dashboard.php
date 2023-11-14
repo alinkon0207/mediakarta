@@ -28,9 +28,9 @@
             $sql3 = "SELECT COUNT(id) FROM logs";
         } else {
             // user
-            $sql1 = "SELECT COUNT(id) FROM users WHERE id = '$user_id'";
-            $sql2 = "SELECT COUNT(id) FROM posts WHERE author = '$user_id'";
-            $sql3 = "SELECT COUNT(id) FROM posts, logs WHERE posts.author = '$user_id' AND posts.id = logs.post_id";
+            $sql1 = "SELECT COUNT(id) FROM users WHERE id = $user_id";
+            $sql2 = "SELECT COUNT(id) FROM posts WHERE author = $user_id";
+            $sql3 = "SELECT COUNT(logs.id) FROM posts, logs WHERE posts.author = $user_id AND posts.id = logs.post_id";
         }
 
         $stmt1 = mysqli_prepare($conn, $sql1);

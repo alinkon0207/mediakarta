@@ -4,8 +4,45 @@
 
     $_SESSION['draw'] = 0;
 
-    /* Delete user */
+    // Processing form data when form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['del_id'])) {
+        /* Delete user */
+    
+        // Define variables and initialize with empty values
+        $del_id = $_GET['del_id'];
+        $msg = $msg_err = "";
 
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
+
+        // Prepare a select statement
+        $sql = "DELETE FROM users WHERE id = $del_id";
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                // Check if email exists, verify password
+                if (mysqli_affected_rows($conn) == 1) {
+                    $msg = "Deleted user successfully";
+                } else {
+                    // Display an error message if email doesn't exist
+                    $msg_err = 'No user found with that id. Please recheck and try again.';
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -133,6 +170,14 @@
                         y: 'top',
                     }
                 });
+
+                <?php
+                    if ($msg_err != "")
+                        echo "notyf.error('$msg_err');";
+                    
+                    if ($msg != "")
+                        echo "notyf.open({type: 'success', message: '$msg'});";
+                ?>
             </script>
             <div class="notyf"></div>
             <div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;"></div>
