@@ -64,7 +64,7 @@
                                 header("Location: " . BASE_URL . "/dashboard");
                             } else {
                                 // Display an error message if password is not valid
-                                $password_err = 'The password you entered was not valid. Please try again.';
+                                $password_err = 'The password you entered is not correct. Please try again.';
                             }
                         }
                     } else {

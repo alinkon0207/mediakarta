@@ -1,6 +1,146 @@
 
 <?php
     include('../bootstrap.php');
+
+    ob_start();
+    
+    // Define variables and initialize with empty values
+    $fullname = "";
+    $email = "";
+    $passwd = "";
+
+    $tg_chat_id = "";
+    $delay = 0;
+
+    // Processing form data when form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $id = $_SESSION['user_id'];
+
+        $fullname_err = "";
+        $email_err = "";
+
+        $tg_err = "";
+        $delay_err = "";
+
+        $msg = $error_msg = "";
+
+        if ($_POST['submit'] == 'profile') {
+            // Check if fullname is empty
+            if (empty(trim($_POST['fullname']))) {
+                $fullname_err = 'Please enter fullname.';
+            } else {
+                $fullname = trim($_POST['fullname']);
+            }
+            // Check if email is empty
+            if (empty(trim($_POST['email']))) {
+                $email_err = 'Please enter email.';
+            } else {
+                $email = trim($_POST['email']);
+            }
+            // Check if password is empty
+            if (empty(trim($_POST['password']))) {
+                $passwd = $_SESSION['passwd'];
+            } else {
+                $passwd = trim($_POST['password']);
+            }
+        } else if ($_POST['submit'] == 'telegram') {
+            // Check if tg_chat_id is empty
+            if (empty(trim($_POST['telegram']))) {
+                $tg_err = 'Please enter Telegram Chat ID.';
+            } else {
+                $tg_chat_id = trim($_POST['telegram']);
+            }
+            // Check if delay is empty
+            if (empty(trim($_POST['delay']))) {
+                $delay_err = 'Please enter delay.';
+            } else {
+                $delay = trim($_POST['delay']);
+            }
+        } else {
+
+        }
+
+        // Validate credentials
+        if (empty($fullname_err) && empty($email_err) && empty($tg_err) && empty($delay_err)) {
+            /*DATABASE CONNECTION */
+            global $conn;
+
+            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            if (!$conn) {
+                die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+            }
+
+            $sql = "SELECT email FROM users WHERE id = $id";
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                // Execute the statement
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) > 0) {
+                    mysqli_stmt_close($stmt);
+
+                    /* Update profile */
+                    if ($_POST['submit'] == 'profile') {
+                        // Prepare a INSERT statement
+                        $hashedPassword = password_hash($passwd, PASSWORD_DEFAULT);
+
+                        $sql = "UPDATE users " . 
+                            "SET fullname='$fullname', email='$email', passwd='$hashedPassword' " . 
+                            "WHERE id=$id";
+                        if ($stmt = mysqli_prepare($conn, $sql)) {
+                            // Attempt to execute the prepared statement
+                            if (mysqli_stmt_execute($stmt)) {
+                                // Store result
+                                mysqli_stmt_store_result($stmt);
+
+                                $_SESSION['username'] = $fullname;
+                                $_SESSION['email'] = $email;
+                                $_SESSOIN['passwd'] = $passwd;
+
+                                $msg = "Profile is updated successfully.";
+                            } else {
+                                echo "Oops! Something went wrong. Please try again later.";
+                            }
+
+                            // Close statement
+                            mysqli_stmt_close($stmt);
+                        }
+                    }
+                    /* Update Telegram */
+                    else if ($_POST['submit'] == 'telegram') {
+                        // Prepare a INSERT statement
+                        $sql = "UPDATE users " . 
+                            "SET tg_chat_id=$tg_chat_id, delay=$delay " . 
+                            "WHERE id=$id";
+                        if ($stmt = mysqli_prepare($conn, $sql)) {
+                            // Attempt to execute the prepared statement
+                            if (mysqli_stmt_execute($stmt)) {
+                                // Store result
+                                mysqli_stmt_store_result($stmt);
+
+                                $_SESSION['tg_chat_id'] = $tg_chat_id;
+                                $_SESSION['delay'] = $delay;
+
+                                $msg = "Telegram is updated successfully.";
+                            } else {
+                                echo "Oops! Something went wrong. Please try again later.";
+                            }
+
+                            // Close statement
+                            mysqli_stmt_close($stmt);
+                        }
+                    }
+                    /* Target Logs */
+                    else {
+                        $msg = "Updating Logs isn't supported yet";
+                    }
+                }
+            }
+
+            // Close connection
+            mysqli_close($conn);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -60,13 +200,34 @@
                                     <div class="col-md-12">
                                         <ul class="nav nav-pills" id="animateLine" role="tablist">
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Profile</button>
+                                                <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                        <circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                    Profile
+                                                </button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="telegram-tab" data-bs-toggle="tab" href="#telegram" role="tab" aria-controls="telegram" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Telegram</button>
+                                                <button class="nav-link" id="telegram-tab" data-bs-toggle="tab" href="#telegram" role="tab" aria-controls="telegram" aria-selected="false" tabindex="-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
+                                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                                    </svg>
+                                                    Telegram
+                                                </button>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link" id="targetlogs-tab" data-bs-toggle="tab" href="#targetlogs" role="tab" aria-controls="targetlogs" aria-selected="false" tabindex="-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-crosshair"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg> Target Logs</button>
+                                                <button class="nav-link" id="targetlogs-tab" data-bs-toggle="tab" href="#targetlogs" role="tab" aria-controls="targetlogs" aria-selected="false" tabindex="-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-crosshair">
+                                                        <circle cx="12" cy="12" r="10"></circle>
+                                                        <line x1="22" y1="12" x2="18" y2="12"></line>
+                                                        <line x1="6" y1="12" x2="2" y2="12"></line>
+                                                        <line x1="12" y1="6" x2="12" y2="2"></line>
+                                                        <line x1="12" y1="22" x2="12" y2="18"></line>
+                                                    </svg>
+                                                    Target Logs
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
@@ -81,7 +242,7 @@
                                                             <label for="fullname" class="form-label">Full Name</label>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <input type="text" name="fullname" id="fullname" class="form-control" value="Merah Putih" required="" autofocus="">
+                                                            <input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo $_SESSION['username']; ?>" required="" autofocus="">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -89,7 +250,7 @@
                                                             <label for="email" class="form-label">Email Address</label>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <input type="email" name="email" id="email" class="form-control" value="merahputih@gmail.com" required="">
+                                                            <input type="email" name="email" id="email" class="form-control" value="<?php echo $_SESSION['email']; ?>" required="">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -125,7 +286,7 @@
                                                             <label for="telegram" class="form-label">Telegram (chat_id)</label>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <input type="number" name="telegram" id="telegram" class="form-control" value="5512935649" required="">
+                                                            <input type="number" name="telegram" id="telegram" class="form-control" value="<?php echo $_SESSION['tg_chat_id']; ?>" required="">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -133,7 +294,7 @@
                                                             <label for="delay" class="form-label">Delay (ms)</label>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <input type="number" name="delay" id="delay" class="form-control" value="1000" min="1000" required="">
+                                                            <input type="number" name="delay" id="delay" class="form-control" value="<?php echo $_SESSION['delay']; ?>" min="1000" required="">
                                                         </div>
                                                     </div>
                                                     <div class="row mb-3">
@@ -229,6 +390,21 @@
                     y: 'top',
                 }
             });
+
+            <?php 
+                if ($fullname_err != "")
+                    echo "notyf.error('$fullname_err');";
+                if ($email_err != "")
+                    echo "notyf.error('$email_err');";
+
+                if ($tg_err != "")
+                    echo "notyf.error('$tg_err');";
+                if ($delay_err != "")
+                    echo "notyf.error('$delay_err');";
+                
+                if ($msg != "")
+                    echo "notyf.open({type: 'success', message: '$msg'});";
+            ?>
         </script>
         <div class="notyf"></div>
         <div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;"></div>
