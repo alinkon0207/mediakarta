@@ -1,6 +1,6 @@
 
 <?php
-    include('../bootstrap.php');
+    include('./bootstrap.php');
 
     /* Initialize session variables */
     $_SESSION['user_id'] = '';
