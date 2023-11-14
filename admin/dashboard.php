@@ -23,7 +23,7 @@
         // Prepare select statements
         if ($is_admin) {
             // admin
-            $sql1 = "SELECT COUNT(id) FROM users WHERE role = 'user'";
+            $sql1 = "SELECT COUNT(id) FROM users WHERE role = 'author'";
             $sql2 = "SELECT COUNT(id) FROM posts";
             $sql3 = "SELECT COUNT(id) FROM logs";
         } else {
