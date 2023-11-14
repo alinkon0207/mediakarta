@@ -61,7 +61,7 @@
                                 $_SESSION['tg_chat_id'] = $tg_chat_id;
                                 $_SESSION['delay'] = $delay;
 
-                                header("Location: " . BASE_URL . "/dashboard");
+                                header("Location: " . BASE_URL . "/dashboard.php");
                             } else {
                                 // Display an error message if password is not valid
                                 $password_err = 'The password you entered is not correct. Please try again.';
