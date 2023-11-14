@@ -81,7 +81,7 @@
                                 "processing": true,
                                 "serverSide": true,
                                 "ajax": {
-                                    "url": "<?php echo BASE_URL; ?>/posts/data/index.php",
+                                    "url": "<?php echo BASE_URL; ?>/posts/data.php",
                                     "type": "POST"
                                 },
                                 "columns": [

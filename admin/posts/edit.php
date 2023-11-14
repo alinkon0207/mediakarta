@@ -1,5 +1,5 @@
 <?php
-    include('../../bootstrap.php');
+    include('../bootstrap.php');
 
     ob_start();
     
@@ -166,13 +166,13 @@
     
     <body class="layout-boxed" monica-version="3.1.2" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb">
 
-        <?php include '../../header.html'; ?>
+        <?php include '../header.html'; ?>
         
         <div class="main-container" id="container">
             <div class="overlay"></div>
             <div class="search-overlay"></div>
 
-            <?php include '../../sidebar.html'; ?>
+            <?php include '../sidebar.html'; ?>
 
             <div id="content" class="main-content">
                 <div class="layout-px-spacing">
@@ -232,7 +232,7 @@
                     </div>
                 </div>
 
-                <?php include('../../footer.html'); ?>
+                <?php include('../footer.html'); ?>
             </div>
         </div>
         <script src="<?php echo BASE_URL; ?>/public/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
