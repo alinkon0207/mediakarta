@@ -11,7 +11,6 @@
     $latitude = $longitude = 0;
     $date = "";
 
-    // Processing form data when form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         /*DATABASE CONNECTION */
         global $conn;
@@ -29,7 +28,6 @@
                 // Store result
                 mysqli_stmt_store_result($stmt);
 
-                // Check if email exists, verify password
                 if (mysqli_stmt_num_rows($stmt) == 1) {
                     // Bind result variables
                     mysqli_stmt_bind_result($stmt, 

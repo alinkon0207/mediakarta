@@ -4,7 +4,6 @@
 
     $_SESSION['draw'] = 0;
 
-    // Processing form data when form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['del_id'])) {
         /* Delete user */
     
@@ -28,7 +27,6 @@
                 // Store result
                 mysqli_stmt_store_result($stmt);
 
-                // Check if email exists, verify password
                 if (mysqli_affected_rows($conn) == 1) {
                     $msg = "Deleted user successfully";
                 } else {
