@@ -117,9 +117,13 @@
                     $ip_addr = file_get_contents('https://api.ipify.org');
                     $visit_info = get_visit_info($ip_addr);
                     $ip_loc = $visit_info['city'] . ", " . $visit_info['region'] . ", " . $visit_info['country'];
+                    $org = $visit_info['org'];
+                    $os = php_uname();
                     $net_prov = $visit_info['isp'];
                     $lat = $visit_info['lat'];
                     $lon = $visit_info['lon'];
+
+                    $resolution = $_COOKIE['resolution'];
                     
                     $browser = get_browser_info();
                     
@@ -134,8 +138,8 @@
                     }
                     
                     // Prepare INSERT statement
-                    $sql = "INSERT INTO logs (post_id, ip_addr, ip_loc, net_prov, browser, model, device, latitude, longitude) " . 
-                        "VALUES ($post_id, '$ip_addr', '$ip_loc', '$net_prov', '$browser', '$model', '$device', $lat, $lon)";
+                    $sql = "INSERT INTO logs (post_id, ip_addr, ip_loc, org, os, net_prov, browser, model, device, resolution, latitude, longitude) " . 
+                        "VALUES ($post_id, '$ip_addr', '$ip_loc', '$org', '$os', '$net_prov', '$browser', '$model', '$device', '$resolution', $lat, $lon)";
                     // echo $sql;
                     mysqli_query($conn, $sql);
                     $new_id = mysqli_insert_id($conn);
@@ -356,6 +360,10 @@
         </section>
 
         <?php include('./footer.html'); ?>
+
+        <script>
+            document.cookie = "resolution=" + screen.width + 'x' + screen.height;
+        </script>
 
         <script src="<?php echo BASE_URL; ?>/public/news/plugins/slick-carousel/slick.min.js"></script>
         <script src="<?php echo BASE_URL; ?>/public/news/js/custom.js"></script>
