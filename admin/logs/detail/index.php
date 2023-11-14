@@ -1,5 +1,55 @@
 <?php
     include('../../bootstrap.php');
+
+    ob_start();
+    
+    // Define variables and initialize with empty values
+    $id = $_GET['id'];
+
+    $ip_addr = $ip_loc = $net_prov = "";
+    $browser = $model = $device = "";
+    $latitude = $longitude = 0;
+    $date = "";
+
+    // Processing form data when form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        /*DATABASE CONNECTION */
+        global $conn;
+
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        if (!$conn) {
+            die("Cannot Establish A Secure Connection To The Host Server At The Moment!");
+        }
+
+        // Prepare a select statement
+        $sql = "SELECT ip_addr, ip_loc, net_prov, browser, model, device, latitude, longitude, date FROM logs WHERE id = $id";
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Store result
+                mysqli_stmt_store_result($stmt);
+
+                // Check if email exists, verify password
+                if (mysqli_stmt_num_rows($stmt) == 1) {
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, 
+                        $ip_addr, $ip_loc, $net_prov, 
+                        $browser, $model, $device, 
+                        $latitude, $longitude, $date);
+                    
+                    mysqli_stmt_fetch($stmt);
+                } else {
+                    // Display an error message if email doesn't exist
+                    $email_err = 'No post found with that id. Please recheck and try again.';
+                }
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +100,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                                     <li class="breadcrumb-item"><a href="#">Logs</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Detail 116.206.8.36</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Detail <?php echo $ip_addr; ?></li>
                                 </ol>
                             </nav>
                         </div>
@@ -63,15 +113,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <th>IP Address</th>
-                                                        <td>116.206.8.36</td>
+                                                        <td><?php echo $ip_addr; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>IP Location</th>
-                                                        <td>Bogor, West Java, Indonesia</td>
+                                                        <td><?php echo $ip_loc; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Provider</th>
-                                                        <td>PT Hutchison 3 Indonesia</td>
+                                                        <td><?php echo $net_prov; ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -81,15 +131,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <th>Browser</th>
-                                                        <td>Chrome Mobile 118.0.0.0</td>
+                                                        <td><?php echo $browser; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Model</th>
-                                                        <td> smartphone </td>
+                                                        <td><?php echo $model; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Device</th>
-                                                        <td>Android 10 ( smartphone )</td>
+                                                        <td><?php echo $device; ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -99,15 +149,15 @@
                                                 <tbody>
                                                     <tr>
                                                         <th>Latitude</th>
-                                                        <td>-6.5691303</td>
+                                                        <td><?php echo $latitude; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Longitude</th>
-                                                        <td>106.8458503</td>
+                                                        <td><?php echo $longitude; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Date</th>
-                                                        <td>2023-11-02 16:45:10</td>
+                                                        <td><?php echo $date; ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -117,7 +167,8 @@
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                                 <div class="widget-content widget-content-area rounded p-3">
-                                    <iframe width="100%" height="300" src="https://maps.google.com/maps?q=-6.5691303,106.8458503&amp;hl=id&amp;z=14&amp;output=embed"></iframe>
+                                    <iframe width="100%" height="300" 
+                                        src="https://maps.google.com/maps?q=<?php echo $latitude; ?>,<?php echo $longitude; ?>&amp;hl=id&amp;z=14&amp;output=embed"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -144,10 +195,6 @@
                     y: 'top',
                 }
             });
-            
-            // $(document).ready(function() {
-            //     $('#summernote').summernote();
-            // });
         </script>
         
         <div class="notyf"></div>
