@@ -4,7 +4,7 @@
     "description": "Kabar Terkini, Berita Terupdate",
     "icons": [
         {
-            "src": "favicon256.png",
+            "src": "logo.png",
             "sizes": "256x256",
             "type": "image/png"
         }
