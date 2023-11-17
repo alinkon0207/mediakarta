@@ -1,9 +1,9 @@
 <?php
-    define('BASE_URL', '/mediakarta');
+    define('BASE_URL', '');
 
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
-    define('DB_PASS', '');
+    define('DB_PASS', 'password');
     define('DB_NAME', 'bms_db');
 
     define('DAYS_PER_MONTH', 31);

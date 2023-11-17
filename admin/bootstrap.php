@@ -1,9 +1,9 @@
 <?php
-    define('BASE_URL', '/mediakarta/admin');
+    define('BASE_URL', '/admin');
 
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
-    define('DB_PASS', '');
+    define('DB_PASS', 'password');
     define('DB_NAME', 'bms_db');
 
     function title_to_permalink($title) {
