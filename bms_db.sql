@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2023 at 09:09 AM
+-- Generation Time: Nov 16, 2023 at 06:14 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -24,61 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `category` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `category`) VALUES
-(1, 'Bisnis'),
-(2, 'Bola'),
-(3, 'Edukasi'),
-(4, 'Ekonomi'),
-(5, 'Entrepreneur'),
-(6, 'Hiburan'),
-(7, 'Hukum'),
-(8, 'Internasional'),
-(9, 'Investment'),
-(10, 'Kecantikan'),
-(11, 'Kesehatan'),
-(12, 'Lifestyle'),
-(13, 'Market'),
-(14, 'Metro'),
-(15, 'Nasional'),
-(16, 'Olahraga'),
-(17, 'Opini'),
-(18, 'Otomotif'),
-(19, 'Politik'),
-(20, 'Profil'),
-(21, 'Sains'),
-(22, 'Selebriti'),
-(23, 'Syariah'),
-(24, 'Teknologi'),
-(25, 'Travel');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `logs`
 --
 
 CREATE TABLE `logs` (
-  `id` varchar(16) NOT NULL,
-  `post_id` varchar(16) NOT NULL,
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
   `ip_addr` varchar(32) NOT NULL,
   `ip_loc` varchar(128) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp(),
-  `net_provider` varchar(64) NOT NULL,
+  `org` varchar(64) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `os` varchar(32) NOT NULL,
+  `net_prov` varchar(64) NOT NULL,
   `browser` varchar(128) NOT NULL,
   `model` varchar(64) NOT NULL,
   `device` varchar(64) NOT NULL,
+  `resolution` varchar(32) NOT NULL,
   `latitude` float NOT NULL,
   `longitude` float NOT NULL,
   `front_photo` varchar(256) NOT NULL,
@@ -93,15 +54,27 @@ CREATE TABLE `logs` (
 --
 
 CREATE TABLE `posts` (
-  `id` varchar(16) NOT NULL,
+  `id` int(11) NOT NULL,
   `author` int(8) NOT NULL,
   `title` varchar(256) NOT NULL,
   `permalink` varchar(256) NOT NULL,
   `category` varchar(64) NOT NULL,
-  `date` date NOT NULL DEFAULT current_timestamp(),
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
   `contents` text NOT NULL,
   `tags` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `author`, `title`, `permalink`, `category`, `date`, `contents`, `tags`) VALUES
+(6, 1, 'SummerNote Test1', 'summernote-test1', 'Bisnis, Ekonomi, Bola', '2023-03-13 05:32:52', '<p>This is a Summ<font color=\"#000000\" style=\"background-color: rgb(255, 255, 0);\">erNote exampl</font>e1.1212</p>', 'tag1, tag2, asdasd, sds'),
+(7, 1, 'SummerNote Test2', 'summernote-test2', 'Bisnis, Ekonomi', '2023-10-13 11:23:27', '<p>This is other SummerNote example.</p>', 'tag1, tag2'),
+(8, 1, 'SummerNote Test3', 'summernote-test3', 'Bisnis, Ekonomi', '2023-11-13 14:07:46', '<p>This is another SummerNote example.</p>', 'tag1, tag2'),
+(9, 1, 'SummerNote Test4', 'summernote-test4', 'Bisnis, Ekonomi', '2023-11-13 14:23:18', '<p>This is SummerNote example 4.</p>', 'tag1, tag2'),
+(10, 1, 'SummerNote 5', 'summernote-5', 'Bisnis, Ekonomi', '2023-11-13 14:52:11', '<p>This is SummerNote example 5.</p>', 'tag1, tag2'),
+(12, 1, 'SummerNote Test 6', 'summernote-test-6', 'Bisnis, Ekonomi', '2023-11-13 15:42:52', '<p>This is SumerNote example 6.</p>', 'tag1, tag2');
 
 -- --------------------------------------------------------
 
@@ -124,17 +97,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `passwd`, `fullname`, `role`, `tg_chat_id`, `delay`) VALUES
-(1, 'admin@gmail.com', '$2y$12$HP9yMU7ND.83aak5UmmDM.xXm24RuxXcq8cEfhPgCS5C2yoA8jM0q', 'Jason Alava', 'admin', 6280744585, 1000);
+(1, 'admin@gmail.com', '$2y$10$rSiDuaRdElqLRUEoKSE1MOMgvEWBEb0XZvVX7.gKjW9O51PBRAVc6', 'Jason Alava', 'admin', 6280744585, 2000),
+(5, 'user@gmail.com', '$2y$10$AxIVbqHp//WdmL4UgmnViehqA3U/7.OVV9/QuTdiCKdgAsPpF/glS', 'Allen Miguel', 'author', 123123, 3000);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `logs`
@@ -161,10 +129,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT for table `logs`
 --
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -180,7 +160,7 @@ ALTER TABLE `logs`
 -- Constraints for table `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `author_idx` FOREIGN KEY (`author`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `author_idx` FOREIGN KEY (`author`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
