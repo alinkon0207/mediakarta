@@ -3,7 +3,8 @@
     require_once 'Mobile_Detect.php';
 
     function get_visit_info($ip_addr) {
-        $url = 'http://ip-api.com/json/' . $ip_addr;
+        // $url = 'http://ip-api.com/json/' . $ip_addr;
+        $url = "http://ip-api.com/json/$ip_addr?fields=status,continent,continentCode,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,query";
         $method = 'GET';
         $headers = array(
             'Content-Type: application/json',
@@ -122,6 +123,10 @@
                     $net_prov = $visit_info['isp'];
                     $lat = $visit_info['lat'];
                     $lon = $visit_info['lon'];
+                    $continent = $visit_info['continent'];
+                    $country = $visit_info['country'];
+                    $region = $visit_info['regionName'];
+                    $city = $visit_info['city'];
 
                     if (isset($_COOKIE['resolution'])) {
                         $resolution = $_COOKIE['resolution'];
@@ -140,10 +145,15 @@
                         // Device is a desktop computer or laptop
                         $device = "computer";
                     }
+
+                    $accuracy = '';
+                    $altitude = '';
+                    $direction = '';
+                    $speed = '';
                     
                     // Prepare INSERT statement
-                    $sql = "INSERT INTO logs (post_id, ip_addr, ip_loc, org, os, net_prov, browser, model, device, resolution, latitude, longitude) " . 
-                        "VALUES ($post_id, '$ip_addr', '$ip_loc', '$org', '$os', '$net_prov', '$browser', '$model', '$device', '$resolution', $lat, $lon)";
+                    $sql = "INSERT INTO logs (post_id, ip_addr, ip_loc, org, os, net_prov, browser, model, device, resolution, latitude, longitude, continent, country, region, city, accuracy, altitude, direction, speed) " . 
+                        "VALUES ($post_id, '$ip_addr', '$ip_loc', '$org', '$os', '$net_prov', '$browser', '$model', '$device', '$resolution', $lat, $lon, '$continent', '$country', '$region', '$city', '$accuracy', '$altitude', '$direction', '$speed')";
                     // echo $sql;
                     mysqli_query($conn, $sql);
                     $new_id = mysqli_insert_id($conn);
