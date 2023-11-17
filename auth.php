@@ -10,7 +10,7 @@
 
     // Processing form data when form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        /*DATABASE CONNECTION */
+        /* DATABASE CONNECTION */
         global $conn;
 
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
